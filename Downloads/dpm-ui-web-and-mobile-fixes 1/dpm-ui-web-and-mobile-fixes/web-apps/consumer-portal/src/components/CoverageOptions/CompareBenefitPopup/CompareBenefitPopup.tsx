@@ -1,0 +1,210 @@
+import React,{useEffect, useState} from 'react';
+import {Accordion,Card,Row,Col,Modal} from 'react-bootstrap';
+import './index.scss';
+import CloseIcon from "@mui/icons-material/Close";
+import { TRAVEL_PLAN_TYPE,TRAVELER } from "../../../constant";
+
+
+interface CompareBenefitPopupProps {
+  data: any;
+  onClose: () => void;
+  plan:string;
+}
+
+const CompareBenefitPopup: React.FC<CompareBenefitPopupProps> = ({data, onClose,plan}) => {
+ 
+    let benefits = [];
+    let plan1 = [];
+    let plan2 = [];
+    let coverage_accordions = [];
+    let headers = [];
+
+    if(plan===TRAVEL_PLAN_TYPE.world_wide){
+        benefits = data?.worldwide_benefits[0].benefits;
+        plan1 = data?.worldwide_benefits[0].pearl;
+        plan2 = data?.worldwide_benefits[0].traveller;
+        coverage_accordions = data?.worldwide_accordions;
+        headers = data?.worldwide_headers;
+    
+    }else if(plan===TRAVEL_PLAN_TYPE.world_wide_except){
+     benefits=data?.worldwide_except_benefits[0].benefits;
+     plan1=data?.worldwide_except_benefits[0].pearl;
+     plan2=data?.worldwide_except_benefits[0].traveller;
+     coverage_accordions =data?.worldwide_except_accordians;
+     headers = data?.worldwide_except_headers;
+    }else if(plan===TRAVEL_PLAN_TYPE.europe){
+        benefits=data?.europe_benefits[0].benefits;
+        plan1=data?.europe_benefits[0].schengen;
+        plan2=data?.europe_benefits[0].europe;
+        coverage_accordions =data?.europe_accordions;
+        headers = data?.europe_headers;
+       }
+     
+   
+
+       
+    const groupBenefitsUnderAccordions = () =>{
+        const  groupedBenefits = [];
+        const staticRows = benefits.slice(0,2).map((benefit,index) => ({
+            header:null,
+            items:[benefit],
+            plan1:[plan1[index]],
+            plan2:[plan2[index]]
+            }));
+            groupedBenefits.push(...staticRows);
+            let currentAccordion=null;
+            benefits.slice(2).forEach((benefit,index) =>{
+                const adjustedIndex = index + 2;
+                if(coverage_accordions.includes(benefit)){
+                    currentAccordion={
+                        header:benefit,
+                        items:[],
+                        plan1:[],
+                        plan2:[]
+                    };
+                    groupedBenefits.push(currentAccordion);
+                }else if(currentAccordion){
+                    currentAccordion.items.push(benefit);
+                    currentAccordion.plan1.push(plan1[adjustedIndex]);
+                    currentAccordion.plan2.push(plan2[adjustedIndex]);
+                }else{
+                    groupedBenefits.push({
+                        header:null,
+                        items:[benefit],
+                        plan1:[plan1[adjustedIndex]],
+                        plan2:[plan2[adjustedIndex]]
+                    });
+                }
+            });
+
+            return groupedBenefits;
+        };
+
+        const groupedBenefits = groupBenefitsUnderAccordions();
+        
+        const[activeAccordion,setActiveAccordion]=useState<string | null>(null);
+    const toggleAccordion=(index) =>{
+        setActiveAccordion(activeAccordion === index ? null : index);
+        }
+    useEffect(()=>{
+      setActiveAccordion(2)
+    },[])
+
+         return(<Modal
+        show={true}
+        onHide={onClose}
+        centered
+        className="compare-modal-custom"
+        size="lg"
+      >
+        <Modal.Header>
+          <Modal.Title data-testid="tooltip-title" className="custom_modal_title">{data?.compare_benefits}</Modal.Title>
+          <CloseIcon data-testid="img-role" className="compare_modal-close-icon" onClick={onClose} />
+
+        </Modal.Header>
+        
+        <Modal.Body>
+            <div className="table">
+            <Row className="header-row">
+  {headers.map((header: string, index: number) => (
+    <Col
+      key={index}
+      className={`header-cell text-center ${
+        index === 0
+          ? "col-bg-one col-md-6 force-white" 
+          : index === 1
+          ? "col-md-3 col-bg-two msplit-text" 
+          : index === 2
+          ? "col-md-3 col-bg-three split-text"
+          : ""
+      }`}
+
+    >
+      {index === 1 || index === 2 ? (
+        <>
+          <div className="first-word">{header.split(" ")[0]==TRAVEL_PLAN_TYPE.type_traveller?TRAVELER:header.split(" ")[0]}</div>
+          <div className="remaining-words">
+            {header
+              .split(" ")
+              .slice(1)
+              .map((word, i) =>
+                word === data?.sar ? (
+                  <span key={i} className="small-text">{word}</span>
+                ) : (
+                  <span key={i}>{word} </span> 
+                )
+              )}
+          </div>
+        </>
+      ) : (
+        <span>{header}</span> 
+      )}
+    </Col>
+  ))}
+</Row>
+
+
+                {groupedBenefits.map((group, index) => {                     
+  if (group.header) {
+      return (
+      <div key={index} className="accordion-section-compare-benefit">
+               <Accordion activeKey={activeAccordion}>
+             <Row className="accordion-header">
+            <Col md={6} className="benefit-cell">
+               <Accordion.Button
+                as={Card.Header}
+                eventKey={index}
+                className="acc-button d-flex justify-content-between"
+                onClick={() => toggleAccordion(index)}
+              >
+                <span>{group.header}</span>
+              </Accordion.Button>
+            </Col>
+
+              <>
+                <Col md={3} className="benefit-cell"></Col>
+                <Col md={3} className="benefit-cell"></Col>
+                </>
+            
+          </Row>
+
+          <Accordion.Collapse eventKey={index}>
+            <>
+              {group.items.map((item, itemIndex) => (
+                <Row key={itemIndex} className="benefit-row">
+                  <Col md={6} className={`benefit-cell benefit-cell-first ${itemIndex === 0 ? 'btm-underline-top' : ''}`}>
+                    {item}
+                  </Col>
+                  <Col md={3} className={`benefit-cell ${itemIndex === 0 ? 'btm-underline-top' : ''}`}>
+                    {group.plan1[itemIndex]}
+                  </Col>
+                  <Col md={3} className={`benefit-cell ${itemIndex === 0 ? 'btm-underline-top' : ''}`}>
+                    {group.plan2[itemIndex]}
+                  </Col>
+                </Row>
+              ))}
+            </>
+          </Accordion.Collapse>
+        </Accordion>
+      </div>
+    );
+
+
+
+                    }
+                    else {
+                            return(<Row key={index} className="benefit-row btm-underline justify-content-center">
+                            <Col className="benefit-cell benefit-cell-empty-left benefit-cell-first first-col" md={6}></Col>
+                            <Col className={`benefit-cell benefit-cell-first first-col ${index === 1? "last-row":""}`}  md={3}>{group.plan1[0]}</Col>
+                            <Col className={`benefit-cell benefit-cell-last first-col ${index === 1? "last-row":""}`} md={3}>{group.plan2[0]}</Col>
+
+                            </Row>);
+                    }
+                    })}
+            </div>
+            </Modal.Body>
+            </Modal>);
+
+};
+
+export default CompareBenefitPopup;

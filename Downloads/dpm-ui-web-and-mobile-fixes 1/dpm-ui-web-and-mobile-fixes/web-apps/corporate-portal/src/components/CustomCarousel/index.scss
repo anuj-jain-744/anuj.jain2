@@ -1,0 +1,75 @@
+@use '../../styles/color.scss' as *;
+@use'../../styles/fonts.scss' as *;
+@use '../../styles/utils' as utils;
+@use '../../../../app-shell/src/styles/media-queries' as *;
+
+@mixin half-circle($top, $right, $bottom, $left, $background-url) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    background: url($background-url) no-repeat;
+}
+
+.custom-carousel-wrapper {
+    background-color: $primaryBlue-800;
+    position: relative;
+
+    .custom-content-wrapper {
+        padding-top: 48px;
+        padding-bottom: 48px;
+
+        .first-half-circle {
+            height: 150px;
+            width: 250px;
+            @include half-circle(0, 0, null, null, "../../assets/sustainability/right-ornament.svg");
+        }
+
+        .second-half-circle {
+            height: 130px;
+            width: 100%;
+            @include half-circle(null, null, 0, 0, "../../assets/sustainability/left-ornament.svg");
+        }
+
+        .custom-title {
+            @include utils.font-setting($themeWhite, 32px, 48px);
+        }
+
+        .custom-carousel {
+            padding-top: 24px;
+
+            .carousel-item {
+                flex-direction: column;
+                gap: 8px;
+                padding: 24px;
+                cursor: pointer;
+
+                .header-content {
+                    flex-direction: row;
+                    align-items: flex-end;
+                    gap: 24px;
+
+                    span {
+                        @include utils.font-setting($themeWhite, 20px, 30px);
+                        @include utils.display-ellipse(1);
+                    }
+
+                    img {
+                        width: 48px;
+                        height: 48px;
+                    }
+                }
+
+                .description-content {
+                    @include utils.font-setting($themeWhite, 18px, 28px);
+                    @include utils.display-ellipse(3);
+                }
+            }
+        }
+    }
+
+    .news-carousel-button-group{
+        top: 48px;
+    }
+}

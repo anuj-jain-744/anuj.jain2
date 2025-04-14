@@ -1,0 +1,70 @@
+@use "../../styles/colors" as *;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+
+
+@mixin flex($direction: row,
+    $align: center,
+    $justify: flex-start,
+    $gap: 0,
+    $alignSelf: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+    align-self: $alignSelf;
+}
+
+
+.quote-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+
+    .leftPanel {
+        @include flex(column, flex-start, flex-start, 24px);
+        width: 67%;
+        margin-bottom: 80px
+    }
+
+    .rightPanel {
+        @include flex(column, center, flex-start);
+        width: 32%;
+        position: sticky;
+        align-self: auto;
+        top: 75px;
+        margin-bottom: 80px;
+    }
+
+    .main-footer {
+
+        .btn-container {
+            width: 100%;
+            justify-content: flex-end;
+
+            &:has(.back-button) {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    .make-btn-payment {
+        background-color: $white !important;
+        color: $light-grey-100 !important;
+    }
+
+    .make-btn-payment-active {
+        background-color: $Primary2---Light-Blue-primary2---light-blue-600 !important;
+        color: $white !important;
+    }
+}
+
+@include media(xl) {
+    .quote-container {
+        .leftPanel {
+            width: 100% !important;
+        }
+    }
+}
