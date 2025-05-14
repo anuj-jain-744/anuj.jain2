@@ -1,0 +1,135 @@
+@use "../../../../../styles/_colors" as *;
+@use "../../../../../styles/fonts" as *;
+
+@mixin font($size, $weight, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: $weight;
+
+  @if $weight == 400 {
+    @extend .walaa-regular-400;
+  } @else if $weight == 500 {
+    @extend .walaa-medium-500;
+  }
+}
+
+.policyCardHamburgerMenuBox {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.3s, opacity 0.1s ease-out;
+  z-index: 10;
+
+  &.open {
+    animation: slideIn 0.3s ease-out forwards;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+  }
+
+  &:not(.open) {
+    animation: slideOut 0.3s ease-out forwards;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.policyCardHamburgerMenuContainer {
+  display: flex;
+  width: 420px;
+  height: 235px;
+  padding: 38px 24px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  row-gap: 16px;
+  flex-wrap: wrap;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  border-radius: 16px;
+  will-change: transform;
+  background: $Primary-Band-Colors-Group-Primary1---Blue-Shades-primary1---blue-500;
+  z-index: 20;
+}
+
+.navigateContainer {
+  display: flex;
+  padding: 0rem 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  width: 168px;
+}
+
+.navigateTextContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-bottom: 1px solid transparent;
+  &:hover {
+    cursor: pointer;
+    border-bottom: 1px solid $Utility---White-white-500;
+  }
+}
+
+.navigateText {
+  color: $Utility---White-white-500;
+  // z-index: 3;
+  @include font(1rem, 400, 1.5rem);
+}
+
+.policyCardHamburgerMenuClose {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  z-index: 20;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.backgroundUnion {
+  width: 369.202px;
+  height: 228px;
+  aspect-ratio: 369.2 / 228;
+  position: absolute;
+  right: -0.202px;
+  z-index: 1;
+}
+
+.disabledMenu{
+  cursor: default;
+  color: $Utility---Dark-Grey-dark-grey-200;
+}
+
+.disabledMenuUnderline{
+  &:hover {
+    border-bottom: none;
+  }
+
+}

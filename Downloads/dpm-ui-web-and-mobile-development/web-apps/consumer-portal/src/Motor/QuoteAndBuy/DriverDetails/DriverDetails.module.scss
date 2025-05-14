@@ -1,0 +1,139 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/fonts' as *;
+
+@mixin flex-center($direction: column, $justify: center, $align: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin font($size, $weight, $line-height) {
+    font-size: $size;
+    line-height: $line-height;
+    font-weight: $weight;
+    @if $weight == 400 {
+      @extend .walaa-regular-400;
+    } @else if $weight == 500 {
+      @extend .walaa-medium-500;
+    }
+  }
+
+@mixin flex-row($justify: space-between, $align: center) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+%flex-column {
+    @include flex-center(column, center, flex-start);
+}
+
+%flex-row {
+    @include flex-row(space-between, center);
+}
+
+%text-body-b3-medium {
+    @include font(0.875rem, 500, 1.375rem);
+    color: var(--Utility---Dark-Grey-dark-grey-500, #202020);
+    
+}
+
+%text-body-b4-regular {
+    @include font(0.75rem, 400, 1.125rem);
+    color: var(--Utility---Dark-Grey-dark-grey-400, #4d4d4d);
+    
+}
+
+.container {
+    @extend %flex-column;
+    gap: 0.5rem;
+    align-self: stretch;
+
+    .row {
+        @extend %flex-row;
+        padding: 0.5rem 1rem;
+        align-self: stretch;
+        border-radius: 0.5rem;
+        border: 1px solid var(--Utility---Light-Grey-utility---light-grey-100, #efefef);
+        background: var(--Utility---White-white-500, #fff);
+    }
+}
+
+.iconContainer {
+    @extend %flex-row;
+    gap: 1rem;
+}
+
+.fieldContainer {
+    @extend %flex-column;
+    gap: 0.25rem;
+}
+
+.icon {
+    @extend %flex-row;
+    padding: 0.5rem;
+    gap: 0.625rem;
+    border-radius: 5rem;
+    background: var(--Primary2---Light-Blue-primary2---light-blue-50, #f0f7fc);
+}
+
+.frame {
+    @extend %flex-column;
+    // width: 6.6875rem;
+
+    .text {
+        @extend %flex-column;
+        gap: 0.25rem;
+
+        .label {
+            @extend %flex-row;
+            gap: 0.25rem;
+            align-self: stretch;
+            @extend %text-body-b3-medium;
+        }
+    }
+
+    .value {
+        @extend %flex-column;
+        gap: 0.25rem;
+
+        .valueInput {
+            @extend %flex-row;
+            gap: 0.25rem;
+            align-self: stretch;
+            @extend %text-body-b4-regular;
+        }
+    }
+}
+
+.field {
+    @extend %flex-row;
+    gap: 0.25rem;
+    align-self: stretch;
+}
+
+.fieldValue {
+    @extend %text-body-b3-medium;
+}
+
+.driverText {
+    @extend %flex-row;
+    gap: 0.125rem;
+
+    .driverLavel {
+        @include font(0.875rem, 400, 1.375rem);
+        color: var(--Primary1---Blue-primary1---blue-600, #165272);
+        
+    }
+
+    border-bottom: 1px solid transparent;
+    &:hover {
+        cursor: pointer;
+        border-bottom: 1px solid var(--Primary1---Blue-primary1---blue-600, #165272);
+    }
+}
+
+.crossicon {
+    cursor: pointer;
+}

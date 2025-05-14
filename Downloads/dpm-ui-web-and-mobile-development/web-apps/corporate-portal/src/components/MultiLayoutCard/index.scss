@@ -1,0 +1,108 @@
+@use "../../styles/color.scss" as *;
+@use "../../styles/utils" as utils;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+
+@mixin half-element($top, $right, $bottom, $left) {
+    position: absolute;
+    height: 75%;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+.multi-layout-wrapper {
+    position: relative;
+    border: 1px solid $light-grey-300-utility;
+    border-radius: 16px;
+    background-color: $themeWhite;
+    cursor: pointer;
+
+    .top-element {
+        @include half-element(0, null, null, 0);
+    }
+
+    .bottom-element {
+        @include half-element(null, 0, 0, null);
+    }
+
+    .card-content {
+        position: inherit;
+        align-items: center;
+        gap: 24px;
+        z-index: 1;
+
+        img {
+            background-color: $light-grey-100-utillity;
+            padding: 8px;
+            height: 60px;
+            border-radius: 100px;
+        }
+
+        .card-label {
+            @include utils.font-setting($primnary-blue-600, 18px, 28px);
+
+            &:hover {
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+        }
+    }
+
+    &:hover {
+        border-color: $primnary-blue-600;
+    }
+
+
+    &.list {
+        margin-top: 24px;
+
+        .card-content {
+            padding: 15px;
+            span{
+                @include utils.display-ellipse(1);
+            }
+        }
+    }
+
+    &.grid {
+        margin-top: 24px;
+        background: $themeWhite url(../../assets/Document-Library/brandingImage.svg) no-repeat;
+        background-size: contain;
+        background-position: top;
+
+        .top-element,
+        .bottom-element {
+            height: 30%;
+        }
+
+        .card-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 82px 31px 35px 31px;
+
+            .card-label {
+                @include utils.display-ellipse(2);
+                height: 90px;
+            }
+        }
+    }
+}
+
+
+@include media(md){
+    .multi-layout-wrapper{
+        &.grid{
+            width: 304px;
+            margin: 24px auto auto auto;
+        }
+
+        &.list {
+            .card-content {
+                span{
+                    @include utils.display-ellipse(2);
+                }
+            }
+        }
+    }
+}

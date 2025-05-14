@@ -1,0 +1,1 @@
+export type {MultiLayoutCardProps} from './multiLayoutCard.type'

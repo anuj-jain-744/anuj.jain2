@@ -1,0 +1,1 @@
+export const TravelInsuranceType: string = "Travel Insurance";

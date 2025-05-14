@@ -1,0 +1,206 @@
+@use '../../styles/colors' as *;
+@use '../../styles/fonts' as *;
+@import "../../styles/registration/globals.scss";
+
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+}
+
+@mixin font($size, $weight, $line-height) {
+    font-size: $size;
+    line-height: $line-height;
+    font-weight: $weight;
+
+    @if $weight == 400 {
+        @extend .walaa-regular-400;
+    }
+
+    @else if $weight == 500 {
+        @extend .walaa-medium-500;
+    }
+}
+
+%cardText {
+    @include flex(row, flex-start, flex-start, 0.25rem);
+    align-self: stretch;
+}
+
+%cardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+%cardDetailsFrame {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+}
+
+.modalContainer {
+    @include flex(column, flex-start);
+    width: 39.75rem;
+    border-radius: 1.25rem;
+    border: 1px solid $light-grey-200;
+    background: $Utility---White-white-500;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+
+    .frame {
+        @include flex(row, center, space-between);
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+        align-self: stretch;
+
+        .heading {
+            @include flex(column, flex-start);
+            gap: 1.5rem;
+            flex: 1 0 0;
+            @include font(1.5rem, 500, 2.25rem);
+        }
+    }
+
+    .body {
+        @include flex(column, flex-start);
+        padding: 0rem 1.5rem;
+        gap: 1.5rem;
+        align-self: stretch;
+
+        .card {
+            @include flex(column, flex-start);
+            padding: 1.5rem;
+            gap: 1rem;
+            align-self: stretch;
+            border-radius: 1.25rem;
+            border: 1px solid $--Primary2---Light-Blue-primary2---light-blue-200;
+            background: $--Primary2---Light-Blue-primary2---light-blue-50;
+
+            .cardContainer {
+                @include flex(row, flex-start);
+                gap: 1rem;
+                align-self: stretch;
+
+                .cardTitle {
+                    @include flex(row, flex-start);
+                    gap: 1rem;
+                    align-self: stretch;
+                    border-radius: 0.5rem;
+
+                    .cardHeading {
+                        @include flex(row, center);
+                        gap: 1rem;
+                        flex: 1 0 0;
+
+                        .cardIcon {
+                            @include flex(row, center);
+                            padding: 0.5rem;
+                            gap: 0.625rem;
+                            border-radius: 6.25rem;
+                            background: $Utility---White-white-500;
+                        }
+                    }
+                }
+
+                .cardContent {
+                    @extend %cardContent;
+
+                    .cardContentTitle {
+                        @extend %cardContent;
+                        color: $--Utility---Dark-Grey-dark-grey-500;
+                        @include font(1rem, 500, 1.5rem);
+                    }
+
+                    .cardContentValue {
+                        @extend %cardContent;
+                        color: $darkest-grey;
+                        @include font(1rem, 500, 1.5rem);
+                    }
+                }
+            }
+
+            .content {
+                @include flex(row, center);
+                gap: 2rem;
+                align-self: stretch;
+                border-radius: 0.5rem;
+
+                .contentHolder {
+                    @include flex(row, center);
+                    gap: 0.5rem;
+
+                    .contentValue {
+                        @include flex(column, flex-start);
+                        gap: 0.25rem;
+
+                        .contentValueInput {
+                            color: $dark-grey;
+                            @include font(0.875rem, 400, 1.375rem);
+                        }
+
+                        .contentValueInputValue {
+                            color: $--Utility---Dark-Grey-dark-grey-500;
+                            @include font(1rem, 500, 1.5rem);
+                        }
+                    }
+                }
+            }
+        }
+
+        .cardDetails {
+            @include flex(column, flex-start);
+            gap: 1rem;
+            align-self: stretch;
+
+            .cardDetailsLabel {
+                color: $--Utility---Dark-Grey-dark-grey-500;
+                @include font(1rem, 500, 1.5rem);
+            }
+
+            .cardDetailsFrameContainer {
+                @include flex(column, flex-start);
+                gap: 1rem;
+                align-self: stretch;
+
+                .cardDetailsFrame {
+                    @extend %cardDetailsFrame;
+
+                    .cardDetailsFrameValue {
+                        @include flex(column, flex-start);
+                        gap: 0.5rem;
+                        flex: 1 0 0;
+
+                        .cardDetailsFrameLabel {
+                            @include flex(row, flex-start);
+                            align-content: flex-start;
+                            gap: 0.25rem;
+                            flex-wrap: wrap;
+                            color: $--Utility---Dark-Grey-dark-grey-500;
+                            @include font(1rem, 400, 1.5rem);
+                        }
+
+                        .cardDetailsFrameInput {
+                            @include flex(row, center);
+                            padding: 0.75rem 1rem;
+                            gap: 0.5rem;
+                            align-self: stretch;
+                            border-radius: 0.25rem;
+                            border: 1px solid $--Utility---Dark-Grey-dark-grey-200;
+                            background: $Utility---White-white-500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .frameBottom {
+        @include flex(row, center, flex-end);
+        padding: 1.5rem;
+        gap: 1rem;
+        align-self: stretch;
+    }
+}

@@ -1,0 +1,61 @@
+@use '../../../../styles/colors' as *;
+@use '../../../../styles/fonts' as *;
+
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0, $alignSelf: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+    gap: $gap;
+    align-self: $alignSelf;
+}
+
+@mixin font($size, $weight, $line-height) {
+    font-size: $size;
+    line-height: $line-height;
+    font-weight: $weight;
+    @if $weight == 400 {
+        @extend .walaa-regular-400;
+    } @else if $weight == 500 {
+        @extend .walaa-medium-500;
+    }
+}
+
+%cardText {
+    @include flex(row, flex-start, flex-start, 0.25rem);
+    align-self: stretch;
+}
+
+.container {
+    @include flex(column, flex-start, flex-start, 1rem, stretch);
+
+    .heading {
+        color: var(--Utility---Dark-Grey-dark-grey-500, #202020);
+        @include font(1.125rem, 500, 1.75rem);
+    }
+
+    .row {
+        @include flex(row, center, flex-start, 1.5rem, stretch);
+
+        .rowContainer {
+            @include flex(column, flex-start, center, 0.5rem);
+            width: 11.4375rem;
+            height: 5rem;
+
+            .title {
+                @include flex(column, flex-start, flex-start, 0.5rem, stretch);
+
+                .titleText {
+                    @extend %cardText;
+                    color: var(--Utility---Dark-Grey-dark-grey-500, #202020);
+                    @include font(1rem, 400, 1.5rem);
+                }
+            }
+
+            .radio {
+                @include flex(column, flex-start, flex-start, 0.625rem);
+                padding: 0.5rem var(--Auto-Number, 0rem);
+            }
+        }
+    }
+}

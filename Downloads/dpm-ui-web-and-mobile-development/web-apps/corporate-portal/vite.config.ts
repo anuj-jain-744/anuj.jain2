@@ -1,0 +1,16 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+
+export default defineConfig({
+  plugins: [
+    react()
+  ],
+  resolve:{
+    alias:{
+      "components/*": `${path.resolve(__dirname,'./components/*')}`,
+      "assets/*": `${path.resolve(__dirname,'./assets/*')}`,
+      "@app-shell/*": `${path.resolve(__dirname,'../app-shell/src/*')}`
+    }
+  },
+});

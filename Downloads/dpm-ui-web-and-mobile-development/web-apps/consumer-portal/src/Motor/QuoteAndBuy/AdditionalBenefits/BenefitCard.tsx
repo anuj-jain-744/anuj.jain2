@@ -1,0 +1,79 @@
+import { LanguageData } from "types/languageData";
+import Car_Icon from "assets/Endorsement/Car_Icon.svg";
+import Home_Benefit_Icon from "assets/Home/home_benefits.png";
+import ThemeButton from "components/ThemeButton/ThemeButton";
+import "./styles.scss";
+import { ZERO_PRICE } from "constant";
+import { getAmountWithIcon } from "@app-shell/utils/common";
+
+
+interface Description {
+  code: string;
+  description: string;
+}
+
+interface BenifitCardProps {
+  isHome: boolean;
+  title: string;
+  description: Description[] | string;
+  price: string;
+  isAdded: boolean;
+  benefitCode?: string;
+  onToggle: () => void;
+  languageData: LanguageData;
+  loading: boolean;
+  mostPurchased: number;
+}
+
+function BenefitCard({ isHome, title, benefitCode, description, price, isAdded, onToggle, languageData, loading, mostPurchased }: Readonly<BenifitCardProps>) {
+  const isPriceZero = price === ZERO_PRICE;
+
+  let benefitsDescription = '';
+  if (Array.isArray(description)) {
+    const coverageBenefits = description.filter((item) => benefitCode === item.code);
+    benefitsDescription = coverageBenefits[0].description;
+  } else {
+    benefitsDescription = description;
+  }
+
+  let buttonTitle = '';
+  if (loading) {
+    buttonTitle = languageData?.loading;
+  } else {
+    buttonTitle = isAdded ? languageData?.remove : languageData?.add_label;
+  }
+
+  return (
+    <div data-testid="benefit-card" className={`small-card ${isAdded ? "small-card-selected" : ""}`}>
+      {mostPurchased >= 0 ? <div className="most-frequently">{languageData?.most_frequently_purchased}</div>: ''}
+      <div className="card-headerr">
+        <div className="card-header-content">
+          <img src={isHome ? Home_Benefit_Icon : Car_Icon} alt="Benefit Icon" />
+          <div className="card-title-content walaa-medium-500">{title}</div>
+        </div>
+        <div className="card-description walaa-regular-400">
+          {benefitsDescription || languageData?.emergency_support_for}{" "}
+        </div>
+      </div>
+      <hr className="horizontal-line-card" />
+      <div className="card-footerr">
+        <div className="price walaa-medium-500">{getAmountWithIcon(price)}</div>
+        <div>
+          <ThemeButton
+            title={isPriceZero ? languageData?.freeCover : buttonTitle}
+            isDisabled={loading || isPriceZero}
+            classes={
+              isAdded
+                ? "remove-btn walaa-medium-500"
+                : "add-btn walaa-medium-500"
+            }
+            variant="outline"
+            onClickhandler={onToggle}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default BenefitCard;
