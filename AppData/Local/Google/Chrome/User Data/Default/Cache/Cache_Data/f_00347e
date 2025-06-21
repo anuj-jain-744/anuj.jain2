@@ -1,0 +1,391 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=6792a168"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s2 = $RefreshSig$();
+import __vite__cjsImport3_react from "/node_modules/.vite/deps/react.js?v=6792a168"; const useEffect = __vite__cjsImport3_react["useEffect"]; const useCallback = __vite__cjsImport3_react["useCallback"]; const useState = __vite__cjsImport3_react["useState"];
+import "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.scss";
+import { Modal, Container } from "/node_modules/.vite/deps/react-bootstrap.js?v=6792a168";
+import { LoginForm } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/LoginForm/index.tsx";
+import { KnowMoreWidget } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/KnowMoreWidget/index.tsx";
+import { VITE_CONTENT_BASE_URI, cmsAPIRoute } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/constant.ts";
+import { useCommonContext, useFetchData, useApiCall } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/shared-common/shared-module/dist/components.es.js";
+import { LoaderOverlay } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Loader/index.tsx";
+import { OTPWrapper } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/OTPComponent/OtpWrapper.tsx";
+import { Stepper } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/Stepper.tsx";
+import { Error } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/Error/index.tsx";
+import { ChangeMobileNumber } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/ChangeMobileNumber/index.tsx";
+import { Success } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/Success/index.tsx";
+import { ForgotPasswordAndSignUp } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/ForgotPasswordAndSignUp/index.tsx";
+import { SetPassword } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/SetPassword/index.tsx";
+import { LoginAndSingupProvider } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/LoginandSignupContext.tsx";
+export const Login = ({
+  showModalStatus,
+  ShowLoginModalStatus,
+  navigateTo
+}) => {
+  _s2();
+  var _s = $RefreshSig$();
+  const { currentLanguage } = useCommonContext();
+  const [state, setState] = useState({ loginData: {}, loading: true });
+  const [currentStepValue, setCurrentStepValue] = useState(0);
+  const [languageData, setLanguageData] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [mobileNumber, setMobileNumber] = useState();
+  const [loginApiRefData, setLoginApiRefData] = useState();
+  const contextProvider = true;
+  const search = location.search;
+  const queryparams = new URLSearchParams(search);
+  const refNum = queryparams.get("rn");
+  const { makeApiCall, data: configData } = useApiCall(1, "consumerportal-config", "post", "en");
+  const { makeApiCall: loginApiCall, data: loginRefData, errors: loginRefError } = useApiCall(14, "/ValidateLoginUrl/" + refNum, "get");
+  const makeConfigApicall = async () => {
+    await Promise.all(
+      [
+        makeApiCall(),
+        refNum && loginApiCall()
+      ]
+    );
+  };
+  useEffect(() => {
+    makeConfigApicall();
+  }, []);
+  useEffect(() => {
+    if (Array.isArray(configData?.config) && configData?.config.length > 0) {
+      setLanguageData(configData?.config[0]);
+    }
+    if (loginRefData) {
+      setLoginApiRefData(loginRefData);
+    }
+    if (loginRefError) {
+      setCurrentStepValue(2);
+      setErrorMessage(loginRefError?.messages?.message_en);
+    }
+  }, [configData, loginRefData, loginRefError]);
+  const fetchAllData = _s(useCallback(_s(async () => {
+    _s();
+    const [loginData2] = await Promise.all(
+      [
+        useFetchData(
+          VITE_CONTENT_BASE_URI,
+          cmsAPIRoute["login"],
+          currentLanguage
+        )
+      ]
+    );
+    setState({ loginData: loginData2, loading: false });
+  }, "Q3T5A8NiIhI7s8YX0md0bBb7p/8=", false, function() {
+    return [useFetchData];
+  }), [currentLanguage]), "Q3T5A8NiIhI7s8YX0md0bBb7p/8=", false, function() {
+    return [useFetchData];
+  });
+  const handleSuccessValidation = (val) => {
+    switch (val) {
+      case "login":
+        ShowLoginModalStatus(false);
+        navigateTo && navigateTo("dashboard");
+        break;
+      case "changeMobileNum":
+        setCurrentStepValue(1);
+        break;
+      case "changeMobileNumOTP":
+        setCurrentStepValue(4);
+        break;
+      case "forgotPass":
+        setCurrentStepValue(4);
+        break;
+      case "signup":
+        setCurrentStepValue(6);
+        break;
+      default:
+        setCurrentStepValue(0);
+        break;
+    }
+  };
+  useEffect(() => {
+    if (showModalStatus) {
+      fetchAllData();
+    }
+  }, [showModalStatus, fetchAllData]);
+  const { loginData, loading } = state;
+  if (loading) {
+    return /* @__PURE__ */ jsxDEV(LoaderOverlay, {}, void 0, false, {
+      fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+      lineNumber: 112,
+      columnNumber: 12
+    }, this);
+  }
+  if (!loginData?.data) {
+    return null;
+  }
+  const getSteps = () => {
+    if (languageData) {
+      switch (currentStepValue) {
+        case 0:
+          return /* @__PURE__ */ jsxDEV(
+            LoginForm,
+            {
+              "data-testid": "login-form",
+              closeIcon: ShowLoginModalStatus,
+              formElementsData: loginData,
+              languageData,
+              setCurrentStepValue,
+              setMobileNumber,
+              contextProvider,
+              refData: loginApiRefData,
+              refNum
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 124,
+              columnNumber: 13
+            },
+            this
+          );
+        case 1:
+          return /* @__PURE__ */ jsxDEV(
+            OTPWrapper,
+            {
+              generateOtpUrl: "/UserLogin/GenerateOtp",
+              validateOtpUrl: "/UserLogin/ValidateOtp",
+              languageData,
+              handleSuccessValidation,
+              payload: {
+                mobileNumber
+              },
+              callGenerateOtp: false,
+              closeIcon: ShowLoginModalStatus,
+              showModal: false,
+              contextProvider,
+              setCurrentStepValue,
+              "data-testid": "login-otp-wrapper"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 138,
+              columnNumber: 13
+            },
+            this
+          );
+        case 2:
+          return /* @__PURE__ */ jsxDEV(
+            Error,
+            {
+              setCurrentStepValue,
+              formElementsData: loginData,
+              closeIcon: ShowLoginModalStatus,
+              message: errorMessage,
+              refNum,
+              "data-testid": "login-error"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 156,
+              columnNumber: 13
+            },
+            this
+          );
+        case 3:
+          return /* @__PURE__ */ jsxDEV(
+            ChangeMobileNumber,
+            {
+              languageData,
+              setCurrentStepValue,
+              closeIcon: ShowLoginModalStatus,
+              contextProvider,
+              handleSuccessValidation,
+              "data-testid": "login-change-mobile-number"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 167,
+              columnNumber: 13
+            },
+            this
+          );
+        case 4:
+          return /* @__PURE__ */ jsxDEV(
+            Success,
+            {
+              setCurrentStepValue,
+              formElementsData: loginData,
+              closeIcon: ShowLoginModalStatus,
+              "data-testid": "login-success"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 178,
+              columnNumber: 13
+            },
+            this
+          );
+        case 5:
+          return /* @__PURE__ */ jsxDEV(
+            ForgotPasswordAndSignUp,
+            {
+              setCurrentStepValue,
+              closeIcon: ShowLoginModalStatus,
+              formElementsData: loginData,
+              languageData,
+              "data-testid": "login-forgot-password-and-signup"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 187,
+              columnNumber: 13
+            },
+            this
+          );
+        case 6:
+          return /* @__PURE__ */ jsxDEV(
+            SetPassword,
+            {
+              setCurrentStepValue,
+              closeIcon: ShowLoginModalStatus,
+              formElementsData: loginData,
+              languageData,
+              contextProvider,
+              handleSuccessValidation,
+              "data-testid": "login-set-password"
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+              lineNumber: 197,
+              columnNumber: 13
+            },
+            this
+          );
+        default:
+          return /* @__PURE__ */ jsxDEV(Fragment, {}, void 0, false, {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+            lineNumber: 208,
+            columnNumber: 18
+          }, this);
+      }
+    }
+  };
+  return /* @__PURE__ */ jsxDEV("div", { "data-testid": "login-modal", className: "login-modal", children: /* @__PURE__ */ jsxDEV(
+    Modal,
+    {
+      show: showModalStatus,
+      onHide: () => ShowLoginModalStatus(false),
+      centered: true,
+      size: "lg",
+      backdrop: "static",
+      animation: true,
+      className: "login-modal-popup",
+      children: /* @__PURE__ */ jsxDEV(Container, { className: "login-container", children: /* @__PURE__ */ jsxDEV("div", { className: "d-flex", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "left-content know-more-custom know-more-wrapper", children: /* @__PURE__ */ jsxDEV(
+          KnowMoreWidget,
+          {
+            navigateTo: () => {
+            },
+            content: loginData?.data || {}
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+            lineNumber: 228,
+            columnNumber: 15
+          },
+          this
+        ) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+          lineNumber: 227,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "login-form-col", children: /* @__PURE__ */ jsxDEV(LoginAndSingupProvider, { children: /* @__PURE__ */ jsxDEV(
+          Stepper,
+          {
+            steps: () => getSteps()
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+            lineNumber: 235,
+            columnNumber: 17
+          },
+          this
+        ) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+          lineNumber: 234,
+          columnNumber: 15
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+          lineNumber: 233,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+        lineNumber: 226,
+        columnNumber: 11
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+        lineNumber: 225,
+        columnNumber: 9
+      }, this)
+    },
+    void 0,
+    false,
+    {
+      fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+      lineNumber: 216,
+      columnNumber: 7
+    },
+    this
+  ) }, void 0, false, {
+    fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx",
+    lineNumber: 215,
+    columnNumber: 5
+  }, this);
+};
+_s2(Login, "eCrAgJpNbGRHrKvgymXTwRJhgX8=", false, function() {
+  return [useCommonContext, useApiCall, useApiCall];
+});
+_c = Login;
+var _c;
+$RefreshReg$(_c, "Login");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/corporate-portal/src/components/Login/index.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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QUFBQSxlQUtBO0FBQUEsUUFDQSx1QkFBQyxTQUFJLFdBQVUsa0JBQ2IsaUNBQUMsMEJBQ0M7QUFBQSxVQUFDO0FBQUE7QUFBQSxZQUNDLE9BQU8sTUFBTW1CLFNBQVM7QUFBQTtBQUFBLFVBRHhCO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxRQUMwQixLQUY1QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBSUEsS0FMRjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBTUE7QUFBQSxXQWJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFjQSxLQWZGO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFnQkE7QUFBQTtBQUFBLElBekJGO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxFQTBCQSxLQTNCRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBNEJBO0FBRUo7QUFBRTdDLElBN05XSixPQUFnQztBQUFBLFVBS2ZaLGtCQVljRSxZQUN1Q0EsVUFBVTtBQUFBO0FBQUE0RCxLQWxCaEZsRDtBQUFnQyxJQUFBa0Q7QUFBQUMsYUFBQUQsSUFBQSIsIm5hbWVzIjpbInVzZUVmZmVjdCIsInVzZVN0YXRlIiwiTW9kYWwiLCJDb250YWluZXIiLCJMb2dpbkZvcm0iLCJLbm93TW9yZVdpZGdldCIsIlZJVEVfQ09OVEVOVF9CQVNFX1VSSSIsImNtc0FQSVJvdXRlIiwidXNlQ29tbW9uQ29udGV4dCIsInVzZUZldGNoRGF0YSIsInVzZUFwaUNhbGwiLCJMb2FkZXJPdmVybGF5IiwiT1RQV3JhcHBlciIsIlN0ZXBwZXIiLCJFcnJvciIsIkNoYW5nZU1vYmlsZU51bWJlciIsIlN1Y2Nlc3MiLCJGb3Jnb3RQYXNzd29yZEFuZFNpZ25VcCIsIlNldFBhc3N3b3JkIiwiTG9naW5BbmRTaW5ndXBQcm92aWRlciIsIkxvZ2luIiwic2hvd01vZGFsU3RhdHVzIiwiU2hvd0xvZ2luTW9kYWxTdGF0dXMiLCJuYXZpZ2F0ZVRvIiwiX3MyIiwiX3MiLCIkUmVmcmVzaFNpZyQiLCJjdXJyZW50TGFuZ3VhZ2UiLCJzdGF0ZSIsInNldFN0YXRlIiwibG9naW5EYXRhIiwibG9hZGluZyIsImN1cnJlbnRTdGVwVmFsdWUiLCJzZXRDdXJyZW50U3RlcFZhbHVlIiwibGFuZ3VhZ2VEYXRhIiwic2V0TGFuZ3VhZ2VEYXRhIiwiZXJyb3JNZXNzYWdlIiwic2V0RXJyb3JNZXNzYWdlIiwibW9iaWxlTnVtYmVyIiwic2V0TW9iaWxlTnVtYmVyIiwibG9naW5BcGlSZWZEYXRhIiwic2V0TG9naW5BcGlSZWZEYXRhIiwiY29udGV4dFByb3ZpZGVyIiwic2VhcmNoIiwibG9jYXRpb24iLCJxdWVyeXBhcmFtcyIsIlVSTFNlYXJjaFBhcmFtcyIsInJlZk51bSIsImdldCIsIm1ha2VBcGlDYWxsIiwiZGF0YSIsImNvbmZpZ0RhdGEiLCJsb2dpbkFwaUNhbGwiLCJsb2dpblJlZkRhdGEiLCJlcnJvcnMiLCJsb2dpblJlZkVycm9yIiwibWFrZUNvbmZpZ0FwaWNhbGwiLCJQcm9taXNlIiwiYWxsIiwiQXJyYXkiLCJpc0FycmF5IiwiY29uZmlnIiwibGVuZ3RoIiwibWVzc2FnZXMiLCJtZXNzYWdlX2VuIiwiZmV0Y2hBbGxEYXRhIiwidXNlQ2FsbGJhY2siLCJoYW5kbGVTdWNjZXNzVmFsaWRhdGlvbiIsInZhbCIsImdldFN0ZXBzIiwiX2MiLCIkUmVmcmVzaFJlZyQiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiaW5kZXgudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyB1c2VFZmZlY3QsIHVzZUNhbGxiYWNrLCB1c2VTdGF0ZSB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IFwiLi9pbmRleC5zY3NzXCI7XG5pbXBvcnQgeyBNb2RhbCwgQ29udGFpbmVyIH0gZnJvbSBcInJlYWN0LWJvb3RzdHJhcFwiO1xuaW1wb3J0IHsgTG9naW5Gb3JtIH0gZnJvbSBcIi4vTG9naW5Gb3JtXCI7XG5pbXBvcnQgeyBLbm93TW9yZVdpZGdldCB9IGZyb20gXCIuLi9Lbm93TW9yZVdpZGdldFwiO1xuaW1wb3J0IHsgVklURV9DT05URU5UX0JBU0VfVVJJLCBjbXNBUElSb3V0ZSB9IGZyb20gXCIuLi8uLi9jb25zdGFudFwiO1xuaW1wb3J0IHsgdXNlQ29tbW9uQ29udGV4dCwgdXNlRmV0Y2hEYXRhLCB1c2VBcGlDYWxsIH0gZnJvbSBcIkBkcG0vc2hhcmVkLW1vZHVsZVwiO1xuaW1wb3J0IHsgTG9hZGVyT3ZlcmxheSB9IGZyb20gXCJjb21wb25lbnRzL0xvYWRlclwiO1xuaW1wb3J0IHsgT1RQV3JhcHBlciB9IGZyb20gXCJjb21wb25lbnRzL09UUENvbXBvbmVudC9PdHBXcmFwcGVyXCJcbmltcG9ydCB7IFN0ZXBwZXIgfSBmcm9tIFwiLi9TdGVwcGVyXCI7XG5pbXBvcnQgeyBFcnJvciB9IGZyb20gXCIuL0Vycm9yXCI7XG5pbXBvcnQgeyBDaGFuZ2VNb2JpbGVOdW1iZXIgfSBmcm9tIFwiLi9DaGFuZ2VNb2JpbGVOdW1iZXJcIjtcbmltcG9ydCB7IFN1Y2Nlc3MgfSBmcm9tIFwiLi9TdWNjZXNzXCI7XG5pbXBvcnQgeyBGb3Jnb3RQYXNzd29yZEFuZFNpZ25VcCB9IGZyb20gXCIuL0ZvcmdvdFBhc3N3b3JkQW5kU2lnblVwXCI7XG5pbXBvcnQgeyBTZXRQYXNzd29yZCB9IGZyb20gXCIuL1NldFBhc3N3b3JkXCI7XG5pbXBvcnQgeyBMb2dpbkFuZFNpbmd1cFByb3ZpZGVyIH0gZnJvbSBcIi4vTG9naW5hbmRTaWdudXBDb250ZXh0XCI7XG5cbmludGVyZmFjZSBMb2dpbk1vZGFsUHJvcHMge1xuICBzaG93TW9kYWxTdGF0dXM6IGJvb2xlYW47XG4gIFNob3dMb2dpbk1vZGFsU3RhdHVzOiAoc3RhdHVzOiBib29sZWFuKSA9PiB2b2lkO1xuICBuYXZpZ2F0ZVRvPzogKHVybDogc3RyaW5nKSA9PiB2b2lkO1xufVxuXG5leHBvcnQgY29uc3QgTG9naW46IFJlYWN0LkZDPExvZ2luTW9kYWxQcm9wcz4gPSAoe1xuICBzaG93TW9kYWxTdGF0dXMsXG4gIFNob3dMb2dpbk1vZGFsU3RhdHVzLFxuICBuYXZpZ2F0ZVRvXG59KSA9PiB7XG4gIGNvbnN0IHsgY3VycmVudExhbmd1YWdlIH0gPSB1c2VDb21tb25Db250ZXh0KCk7XG4gIGNvbnN0IFtzdGF0ZSwgc2V0U3RhdGVdID0gdXNlU3RhdGUoeyBsb2dpbkRhdGE6IHt9LCBsb2FkaW5nOiB0cnVlIH0pO1xuICBjb25zdCBbY3VycmVudFN0ZXBWYWx1ZSwgc2V0Q3VycmVudFN0ZXBWYWx1ZV0gPSB1c2VTdGF0ZTxudW1iZXI+KDApO1xuICBjb25zdCBbbGFuZ3VhZ2VEYXRhLCBzZXRMYW5ndWFnZURhdGFdID0gdXNlU3RhdGU8b2JqZWN0PigpO1xuICBjb25zdCBbZXJyb3JNZXNzYWdlLCBzZXRFcnJvck1lc3NhZ2VdID0gdXNlU3RhdGU8c3RyaW5nPigpO1xuICBjb25zdCBbbW9iaWxlTnVtYmVyLCBzZXRNb2JpbGVOdW1iZXJdID0gdXNlU3RhdGU8bnVtYmVyPigpO1xuICBjb25zdCBbbG9naW5BcGlSZWZEYXRhLCBzZXRMb2dpbkFwaVJlZkRhdGFdID0gdXNlU3RhdGU8b2JqZWN0PigpO1xuICBjb25zdCBjb250ZXh0UHJvdmlkZXIgPSB0cnVlO1xuICBjb25zdCBzZWFyY2ggPSBsb2NhdGlvbi5zZWFyY2g7XG4gIGNvbnN0IHF1ZXJ5cGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcyhzZWFyY2gpO1xuICBjb25zdCByZWZOdW0gPSBxdWVyeXBhcmFtcy5nZXQoJ3JuJyk7XG5cbiAgY29uc3QgeyBtYWtlQXBpQ2FsbCwgZGF0YTogY29uZmlnRGF0YSB9ID0gdXNlQXBpQ2FsbCgxLCBcImNvbnN1bWVycG9ydGFsLWNvbmZpZ1wiLCBcInBvc3RcIiwgXCJlblwiKTtcbiAgY29uc3QgeyBtYWtlQXBpQ2FsbDogbG9naW5BcGlDYWxsLCBkYXRhOiBsb2dpblJlZkRhdGEsIGVycm9yczogbG9naW5SZWZFcnJvciB9ID0gdXNlQXBpQ2FsbCgxNCwgXCIvVmFsaWRhdGVMb2dpblVybC9cIiArIHJlZk51bSwgXCJnZXRcIik7XG5cbiAgY29uc3QgbWFrZUNvbmZpZ0FwaWNhbGwgPSBhc3luYyAoKSA9PiB7XG4gICAgYXdhaXQgUHJvbWlzZS5hbGwoW1xuICAgICAgbWFrZUFwaUNhbGwoKSxcbiAgICAgIHJlZk51bSAmJiBsb2dpbkFwaUNhbGwoKSxcbiAgICBdKTtcbiAgfVxuXG4gIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgbWFrZUNvbmZpZ0FwaWNhbGwoKTtcbiAgfSwgW10pO1xuXG4gIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgaWYgKEFycmF5LmlzQXJyYXkoY29uZmlnRGF0YT8uY29uZmlnKSAmJiBjb25maWdEYXRhPy5jb25maWcubGVuZ3RoID4gMCkge1xuICAgICAgc2V0TGFuZ3VhZ2VEYXRhKGNvbmZpZ0RhdGE/LmNvbmZpZ1swXSk7XG4gICAgfVxuICAgIGlmIChsb2dpblJlZkRhdGEpIHtcbiAgICAgIHNldExvZ2luQXBpUmVmRGF0YShsb2dpblJlZkRhdGEpO1xuICAgIH1cbiAgICBpZiAobG9naW5SZWZFcnJvcikge1xuICAgICAgc2V0Q3VycmVudFN0ZXBWYWx1ZSgyKTtcbiAgICAgIHNldEVycm9yTWVzc2FnZShsb2dpblJlZkVycm9yPy5tZXNzYWdlcz8ubWVzc2FnZV9lbilcbiAgICB9XG4gIH0sIFtjb25maWdEYXRhLCBsb2dpblJlZkRhdGEsIGxvZ2luUmVmRXJyb3JdKTtcblxuICBjb25zdCBmZXRjaEFsbERhdGEgPSB1c2VDYWxsYmFjayhhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgW2xvZ2luRGF0YV0gPSBhd2FpdCBQcm9taXNlLmFsbChbXG4gICAgICB1c2VGZXRjaERhdGEoXG4gICAgICAgIFZJVEVfQ09OVEVOVF9CQVNFX1VSSSxcbiAgICAgICAgY21zQVBJUm91dGVbXCJsb2dpblwiXSxcbiAgICAgICAgY3VycmVudExhbmd1YWdlXG4gICAgICApLFxuICAgIF0pO1xuICAgIHNldFN0YXRlKHsgbG9naW5EYXRhLCBsb2FkaW5nOiBmYWxzZSB9KTtcbiAgfSwgW2N1cnJlbnRMYW5ndWFnZV0pO1xuXG4gIGNvbnN0IGhhbmRsZVN1Y2Nlc3NWYWxpZGF0aW9uID0gKHZhbCkgPT4ge1xuICAgIHN3aXRjaCAodmFsKSB7XG4gICAgICBjYXNlICdsb2dpbic6XG4gICAgICAgIFNob3dMb2dpbk1vZGFsU3RhdHVzKGZhbHNlKTtcbiAgICAgICAgbmF2aWdhdGVUbyAmJiBuYXZpZ2F0ZVRvKCdkYXNoYm9hcmQnKTtcbiAgICAgICAgYnJlYWs7XG4gICAgICBjYXNlICdjaGFuZ2VNb2JpbGVOdW0nOlxuICAgICAgICBzZXRDdXJyZW50U3RlcFZhbHVlKDEpO1xuICAgICAgICBicmVhaztcbiAgICAgIGNhc2UgJ2NoYW5nZU1vYmlsZU51bU9UUCc6XG4gICAgICAgIHNldEN1cnJlbnRTdGVwVmFsdWUoNCk7XG4gICAgICAgIGJyZWFrO1xuICAgICAgY2FzZSAnZm9yZ290UGFzcyc6XG4gICAgICAgIHNldEN1cnJlbnRTdGVwVmFsdWUoNCk7XG4gICAgICAgIGJyZWFrO1xuICAgICAgY2FzZSAnc2lnbnVwJzogXG4gICAgICAgIHNldEN1cnJlbnRTdGVwVmFsdWUoNik7XG4gICAgICAgIGJyZWFrO1xuICAgICAgZGVmYXVsdDpcbiAgICAgICAgc2V0Q3VycmVudFN0ZXBWYWx1ZSgwKTtcbiAgICAgICAgYnJlYWs7XG4gICAgfVxuICB9XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBpZiAoc2hvd01vZGFsU3RhdHVzKSB7XG4gICAgICBmZXRjaEFsbERhdGEoKTtcbiAgICB9XG4gIH0sIFtzaG93TW9kYWxTdGF0dXMsIGZldGNoQWxsRGF0YV0pO1xuXG4gIGNvbnN0IHsgbG9naW5EYXRhLCBsb2FkaW5nIH0gPSBzdGF0ZTtcblxuICBpZiAobG9hZGluZykge1xuICAgIHJldHVybiA8TG9hZGVyT3ZlcmxheSAvPjtcbiAgfVxuXG4gIGlmICghbG9naW5EYXRhPy5kYXRhKSB7XG4gICAgcmV0dXJuIG51bGw7XG4gIH1cblxuICBjb25zdCBnZXRTdGVwcyA9ICgpID0+IHtcbiAgICBpZihsYW5ndWFnZURhdGEpe1xuICAgICAgc3dpdGNoIChjdXJyZW50U3RlcFZhbHVlKSB7XG4gICAgICAgIGNhc2UgMDogICBcbiAgICAgICAgICByZXR1cm4gKFxuICAgICAgICAgICAgPExvZ2luRm9ybVxuICAgICAgICAgICAgICAgICAgZGF0YS10ZXN0aWQ9XCJsb2dpbi1mb3JtXCJcbiAgICAgICAgICAgICAgICAgIGNsb3NlSWNvbj17U2hvd0xvZ2luTW9kYWxTdGF0dXN9XG4gICAgICAgICAgICAgICAgICBmb3JtRWxlbWVudHNEYXRhPXtsb2dpbkRhdGF9XG4gICAgICAgICAgICAgICAgICBsYW5ndWFnZURhdGEgPSB7bGFuZ3VhZ2VEYXRhfVxuICAgICAgICAgICAgICAgICAgc2V0Q3VycmVudFN0ZXBWYWx1ZSA9e3NldEN1cnJlbnRTdGVwVmFsdWV9XG4gICAgICAgICAgICAgICAgICBzZXRNb2JpbGVOdW1iZXIgPSB7c2V0TW9iaWxlTnVtYmVyfVxuICAgICAgICAgICAgICAgICAgY29udGV4dFByb3ZpZGVyID0ge2NvbnRleHRQcm92aWRlcn1cbiAgICAgICAgICAgICAgICAgIHJlZkRhdGEgPSB7bG9naW5BcGlSZWZEYXRhfVxuICAgICAgICAgICAgICAgICAgcmVmTnVtID0geyByZWZOdW0gfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgKTtcbiAgICAgICAgY2FzZSAxOiBcbiAgICAgICAgcmV0dXJuKFxuICAgICAgICAgIDxPVFBXcmFwcGVyIFxuICAgICAgICAgICAgZ2VuZXJhdGVPdHBVcmw9e1wiL1VzZXJMb2dpbi9HZW5lcmF0ZU90cFwifSBcbiAgICAgICAgICAgIHZhbGlkYXRlT3RwVXJsPXtcIi9Vc2VyTG9naW4vVmFsaWRhdGVPdHBcIn0gXG4gICAgICAgICAgICBsYW5ndWFnZURhdGE9e2xhbmd1YWdlRGF0YX1cbiAgICAgICAgICAgIGhhbmRsZVN1Y2Nlc3NWYWxpZGF0aW9uPXtoYW5kbGVTdWNjZXNzVmFsaWRhdGlvbn0gXG4gICAgICAgICAgICBwYXlsb2FkPXt7XG4gICAgICAgICAgICAgIG1vYmlsZU51bWJlcjogbW9iaWxlTnVtYmVyXG4gICAgICAgICAgICB9fVxuICAgICAgICAgICAgY2FsbEdlbmVyYXRlT3RwID0ge2ZhbHNlfVxuICAgICAgICAgICAgY2xvc2VJY29uPXtTaG93TG9naW5Nb2RhbFN0YXR1c31cbiAgICAgICAgICAgIHNob3dNb2RhbCA9IHtmYWxzZX1cbiAgICAgICAgICAgIGNvbnRleHRQcm92aWRlciA9IHtjb250ZXh0UHJvdmlkZXJ9XG4gICAgICAgICAgICBzZXRDdXJyZW50U3RlcFZhbHVlID17c2V0Q3VycmVudFN0ZXBWYWx1ZX1cbiAgICAgICAgICAgIGRhdGEtdGVzdGlkPVwibG9naW4tb3RwLXdyYXBwZXJcIlxuICAgICAgICAgIC8+XG4gICAgICAgIClcbiAgICAgICAgY2FzZSAyOiAgIFxuICAgICAgICAgIHJldHVybihcbiAgICAgICAgICAgIDxFcnJvciBcbiAgICAgICAgICAgICAgc2V0Q3VycmVudFN0ZXBWYWx1ZSA9e3NldEN1cnJlbnRTdGVwVmFsdWV9XG4gICAgICAgICAgICAgIGZvcm1FbGVtZW50c0RhdGE9e2xvZ2luRGF0YX1cbiAgICAgICAgICAgICAgY2xvc2VJY29uPXtTaG93TG9naW5Nb2RhbFN0YXR1c31cbiAgICAgICAgICAgICAgbWVzc2FnZT0ge2Vycm9yTWVzc2FnZX1cbiAgICAgICAgICAgICAgcmVmTnVtID0geyByZWZOdW0gfVxuICAgICAgICAgICAgICBkYXRhLXRlc3RpZD1cImxvZ2luLWVycm9yXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgKVxuICAgICAgICBjYXNlIDM6XG4gICAgICAgICAgcmV0dXJuKFxuICAgICAgICAgICAgPENoYW5nZU1vYmlsZU51bWJlclxuICAgICAgICAgICAgICBsYW5ndWFnZURhdGEgPSB7bGFuZ3VhZ2VEYXRhfVxuICAgICAgICAgICAgICBzZXRDdXJyZW50U3RlcFZhbHVlID17c2V0Q3VycmVudFN0ZXBWYWx1ZX1cbiAgICAgICAgICAgICAgY2xvc2VJY29uPXtTaG93TG9naW5Nb2RhbFN0YXR1c31cbiAgICAgICAgICAgICAgY29udGV4dFByb3ZpZGVyID0ge2NvbnRleHRQcm92aWRlcn1cbiAgICAgICAgICAgICAgaGFuZGxlU3VjY2Vzc1ZhbGlkYXRpb249IHtoYW5kbGVTdWNjZXNzVmFsaWRhdGlvbn1cbiAgICAgICAgICAgICAgZGF0YS10ZXN0aWQ9XCJsb2dpbi1jaGFuZ2UtbW9iaWxlLW51bWJlclwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgIClcbiAgICAgICAgY2FzZSA0OiAgIFxuICAgICAgICAgIHJldHVybihcbiAgICAgICAgICAgIDxTdWNjZXNzIFxuICAgICAgICAgICAgICBzZXRDdXJyZW50U3RlcFZhbHVlID17c2V0Q3VycmVudFN0ZXBWYWx1ZX1cbiAgICAgICAgICAgICAgZm9ybUVsZW1lbnRzRGF0YT17bG9naW5EYXRhfVxuICAgICAgICAgICAgICBjbG9zZUljb249e1Nob3dMb2dpbk1vZGFsU3RhdHVzfVxuICAgICAgICAgICAgICBkYXRhLXRlc3RpZD1cImxvZ2luLXN1Y2Nlc3NcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICApXG4gICAgICAgIGNhc2UgNTogICBcbiAgICAgICAgICByZXR1cm4oXG4gICAgICAgICAgICA8Rm9yZ290UGFzc3dvcmRBbmRTaWduVXAgXG4gICAgICAgICAgICAgIHNldEN1cnJlbnRTdGVwVmFsdWUgPXtzZXRDdXJyZW50U3RlcFZhbHVlfVxuICAgICAgICAgICAgICBjbG9zZUljb249e1Nob3dMb2dpbk1vZGFsU3RhdHVzfVxuICAgICAgICAgICAgICBmb3JtRWxlbWVudHNEYXRhPXtsb2dpbkRhdGF9XG4gICAgICAgICAgICAgIGxhbmd1YWdlRGF0YSA9IHtsYW5ndWFnZURhdGF9XG4gICAgICAgICAgICAgIGRhdGEtdGVzdGlkPVwibG9naW4tZm9yZ290LXBhc3N3b3JkLWFuZC1zaWdudXBcIlxuICAgICAgICAgICAgLz5cbiAgICAgICAgICApXG4gICAgICAgIGNhc2UgNjogICBcbiAgICAgICAgICByZXR1cm4oXG4gICAgICAgICAgICA8U2V0UGFzc3dvcmQgXG4gICAgICAgICAgICAgIHNldEN1cnJlbnRTdGVwVmFsdWUgPXtzZXRDdXJyZW50U3RlcFZhbHVlfVxuICAgICAgICAgICAgICBjbG9zZUljb249e1Nob3dMb2dpbk1vZGFsU3RhdHVzfVxuICAgICAgICAgICAgICBmb3JtRWxlbWVudHNEYXRhPXtsb2dpbkRhdGF9XG4gICAgICAgICAgICAgIGxhbmd1YWdlRGF0YSA9IHtsYW5ndWFnZURhdGF9XG4gICAgICAgICAgICAgIGNvbnRleHRQcm92aWRlciA9IHtjb250ZXh0UHJvdmlkZXJ9XG4gICAgICAgICAgICAgIGhhbmRsZVN1Y2Nlc3NWYWxpZGF0aW9uPSB7aGFuZGxlU3VjY2Vzc1ZhbGlkYXRpb259XG4gICAgICAgICAgICAgIGRhdGEtdGVzdGlkPVwibG9naW4tc2V0LXBhc3N3b3JkXCJcbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgKVxuICAgICAgICBkZWZhdWx0OlxuICAgICAgICAgIHJldHVybiA8PjwvPjtcbiAgICAgIH1cbiAgICB9XG4gIH07XG5cblxuICByZXR1cm4gKFxuICAgIDxkaXYgZGF0YS10ZXN0aWQ9XCJsb2dpbi1tb2RhbFwiIGNsYXNzTmFtZT1cImxvZ2luLW1vZGFsXCI+XG4gICAgICA8TW9kYWxcbiAgICAgICAgc2hvdz17c2hvd01vZGFsU3RhdHVzfVxuICAgICAgICBvbkhpZGU9eygpID0+IFNob3dMb2dpbk1vZGFsU3RhdHVzKGZhbHNlKX1cbiAgICAgICAgY2VudGVyZWRcbiAgICAgICAgc2l6ZT1cImxnXCJcbiAgICAgICAgYmFja2Ryb3A9XCJzdGF0aWNcIlxuICAgICAgICBhbmltYXRpb25cbiAgICAgICAgY2xhc3NOYW1lPVwibG9naW4tbW9kYWwtcG9wdXBcIlxuICAgICAgPlxuICAgICAgICA8Q29udGFpbmVyIGNsYXNzTmFtZT1cImxvZ2luLWNvbnRhaW5lclwiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZC1mbGV4XCI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImxlZnQtY29udGVudCBrbm93LW1vcmUtY3VzdG9tIGtub3ctbW9yZS13cmFwcGVyXCI+XG4gICAgICAgICAgICAgIDxLbm93TW9yZVdpZGdldFxuICAgICAgICAgICAgICAgIG5hdmlnYXRlVG89eygpID0+IHsgfX1cbiAgICAgICAgICAgICAgICBjb250ZW50PXtsb2dpbkRhdGE/LmRhdGEgfHwge319XG4gICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibG9naW4tZm9ybS1jb2xcIj5cbiAgICAgICAgICAgICAgPExvZ2luQW5kU2luZ3VwUHJvdmlkZXI+XG4gICAgICAgICAgICAgICAgPFN0ZXBwZXJcbiAgICAgICAgICAgICAgICAgIHN0ZXBzPXsoKSA9PiBnZXRTdGVwcygpfVxuICAgICAgICAgICAgICAgIC8+XG4gICAgICAgICAgICAgIDwvTG9naW5BbmRTaW5ndXBQcm92aWRlcj5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L0NvbnRhaW5lcj5cbiAgICAgIDwvTW9kYWw+XG4gICAgPC9kaXY+XG4gICk7XG59O1xuIl0sImZpbGUiOiJDOi9Vc2Vycy9hbnVqLmphaW4yL0Rvd25sb2Fkcy8xMC0wNi0yMDI1L2RwbS11aS13ZWItYW5kLW1vYmlsZS1maXhlcy93ZWItYXBwcy9jb3Jwb3JhdGUtcG9ydGFsL3NyYy9jb21wb25lbnRzL0xvZ2luL2luZGV4LnRzeCJ9
