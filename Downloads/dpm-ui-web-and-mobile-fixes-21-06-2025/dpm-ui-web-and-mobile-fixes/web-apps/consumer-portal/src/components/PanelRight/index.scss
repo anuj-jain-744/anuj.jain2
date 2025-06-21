@@ -1,0 +1,104 @@
+@use "../../../../app-shell/src/styles/media-queries" as *;
+@use "../../../../consumer-portal/src/styles/colors" as *;
+
+@media (max-width: 1024px) {
+    /* Your styles here */
+    .summary-details {
+        background-color: $white;
+        border: 1px solid $light-grey;
+        border-radius: 8px;
+        padding: 5px;
+        margin: 5px;
+        box-shadow: 0 2px 10px $black-transparency-10;
+        position: fixed;
+        top:27%;
+        right: -300px; // Off-screen by default
+        z-index: 1000;
+        transition: right 0.5s ease, background-color 0.5s ease cubic-bezier(.36, -0.01, 0, .77);
+        backdrop-filter: blur(30px) saturate(2);
+        -webkit-backdrop-filter: blur(30px) saturate(2);
+
+        &.visible {
+            right: 0; // Slide in
+        }
+
+        &.red-bg {
+            background-color: $red-utility;
+        }
+
+        &.white-bg {
+            background-color: $white;
+        }
+
+        .right-panel {
+            display: inline-flex;
+            padding: 10px;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px 0px 0px 8px;
+            background: inherit; // Inherits the background from .summary-details
+            box-shadow: 0px 4px 4px 0px $black-transparency-25;
+            transition: background-color 0.5s ease;
+
+            .summary-text {
+                color: $Primary1---Blue-primary1---blue-600;
+            }
+
+            .right-icon {
+                width: 20px;
+                height: 20px;
+
+                &.icon-red {
+                    background-color: $red-utility;
+                }
+            }
+        }
+    }
+
+    .hide-text {
+        opacity: 0;
+        display: none;
+        transform: translateX(100px);
+        transition: opacity 5s ease, transform 5s ease;
+    }
+
+    .summary-drawer {
+        display: flex;
+        width: 448px;
+        height: 1366px;
+        padding: 72px 16px 24px 16px;
+        flex-direction: column;
+        gap: 24px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        max-width: 420px;
+        background: $white;
+        z-index: 1050;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        transform: translateX(100%); // initially hidden
+        transition: transform 0.3s ease-in-out;
+        align-items: flex-start;
+        justify-content: flex-start;
+        &.open {
+            transform: translateX(0); // slide in on open
+        }
+        .modal-header-text{
+        color:  $dark-grey-500;
+        font-size: 20px;
+        line-height: 30px;
+        }
+        .close-btn {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            right: 16px;    
+            top: 72px;
+            background-color: $white;
+            fill: $white;
+        }
+
+    }
+  }
+

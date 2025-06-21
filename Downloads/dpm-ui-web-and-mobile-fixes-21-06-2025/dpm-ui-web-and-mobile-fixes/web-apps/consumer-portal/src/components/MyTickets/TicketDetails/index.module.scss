@@ -1,0 +1,408 @@
+@use "../../../styles/_colors.scss" as *;
+@use "../../../styles/_fonts.scss" as *;
+@use "../../../styles/utils" as *;
+@use "../../../../../app-shell/src/styles/media-queries" as *;
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+@mixin font($size, $weight, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: $weight;
+  @if $weight ==400 {
+    @extend .walaa-regular-400;
+  }
+  @else if $weight ==500 {
+    @extend .walaa-medium-500;
+  }
+}
+%cardText {
+  @include flex(row, flex-start, flex-start, 0.25rem);
+  align-self: stretch;
+}
+
+.contactWrapperBoxOuter {
+  display: flex;
+  padding: 40px 0 40px 72px;
+	flex-direction: column;
+  justify-content: flex-end;
+
+  .contactHeader {
+    padding-bottom: 40px;
+
+    h2 {
+      color: $Primary1---Blue-primary1---blue-50;
+    }
+
+    p {
+      margin-top: 8px;
+      font-size: 18px;
+      color: $darkest-grey;
+    }
+  }
+
+  .ticketBodyWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 24px;
+
+    .ticketBody {
+      border-radius: 16px;
+      background-color: $Utility---Light-Grey-utility---light-grey-50;
+      flex: 2;
+      border: 1px solid $light-grey-300-utility;
+
+      .ticketHeaderWarn {
+        display: flex;
+        border: 1px solid $Secondary3---Tulip-Tree-secondary3---tulip-tree-600;
+        border-radius: 16px 16px 0 0;
+        background-color: $secondary-tulip-tree-50;
+        padding: 24px 16px;
+        gap: 10px;
+
+        .imageWrapper {
+          display: flex;
+          padding: 10px;
+          align-items: center;
+          gap: 10px;
+          background: $white;
+          border-radius: 50%;
+        }
+
+        .ticketComplaint {
+          flex-direction: column;
+          display: flex;
+          width: 150px;
+
+          .ticketKey {
+            font-size: 18px;
+            color: $dark-grey;
+            gap: 4px;
+            @extend .walaa-medium-500
+
+          }
+
+          .ticketValue {
+            font-size: 16px;
+            color: $Primary1---Blue-Shades-primary1---blue-900;
+            gap: 4px;
+             @extend .walaa-medium-500
+          }
+
+        }
+
+        .ticketStatus {
+          flex-direction: column;
+          display: flex;
+          width: 150px;
+
+          .iconWrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
+            .ticketValue {
+              font-size: 16px;
+              color: $Primary1---Blue-Shades-primary1---blue-900;
+              gap: 4px;
+               @extend .walaa-medium-500
+            }
+          }
+
+          .ticketKey {
+            font-size: 18px;
+              color: $dark-grey;
+              gap: 4px;
+              @extend .walaa-medium-500
+
+          }
+
+          
+        }
+      }
+      .ticketHeaderSuccess {
+        @extend .ticketHeaderWarn;
+        border: 1px solid $green-700-dark;
+        background-color: $fade-black;
+
+
+      }
+
+      .ticketHeaderGreen {
+        border: 1px solid $secondary-tulip-tree-50;
+        border-radius: 16px 16px 0 0;
+      }
+
+
+
+      .ticketContainer {
+        padding: 24px;
+        flex: 1;
+        .userResponse{
+          display: flex;
+          gap: 8px;
+          align-items: flex-start;
+          width: 100%;
+          margin-bottom: 16px;
+          
+          .profileSection{
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              width: 10%;
+              .dpWrapper{
+                border-radius: 50%;
+                padding: 10px;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                width: 52px;
+              }
+
+          }
+          .contentSection{
+            background-color: $white;
+            border-radius: 10px;
+            padding: 16px;
+            width: 90%;
+            .titleRow{
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 8px;
+              h4{
+                @include font(18px, 500, 28px)
+              }
+              p{
+                @include font(16px, 400, 24px)
+              }
+            }
+            .conversationWrapper{
+              p{
+                @include font(16px, 400, 24px)
+              }
+              .fileWrapper{
+                margin: 16px;
+                background: $Utility---Light-Grey-utility---light-grey-50;
+                border: 1px solid $light-grey-300;
+                border-radius: 0.5rem;
+                h4{
+                  @include font(16px, 400, 24px);
+                }
+                p{
+                  @include font(12px, 400, 20px);
+                  margin-bottom: 16px;
+                  .fileTitle{
+                    @include font(12px, 500, 20px);
+                  }
+                }
+                @include flex(column, flex-start, flex-start, 0.5rem);
+                  padding: 1rem;
+                  align-self: stretch;
+                .tycFrameUploadContent {
+                  @include flex(row, center, space-between, 0.5rem);
+                  padding: 0.5rem 0.5rem 0.5rem 1rem;
+                  align-self: stretch;
+                  border-radius: 0.5rem;
+                  border: 1px solid $light-grey-200;
+                  background: $Utility---White-white-500;
+                  position: relative;
+                
+                
+                  [class~="upload-btn-div"] {
+                    display: flex ;
+                    align-items: center;
+                    label{cursor: pointer; }
+                
+                    [class~="upload-btn"]{
+                
+                      @include font(14px, 500, 22px);
+                
+                      color: $Primary1---Blue-primary1---blue-500;
+                      padding-right: 16px;
+                      img{height: 22px; margin-right: 8px;}
+                    }
+                  }
+                  button.tycUploadButton {
+                    color: $Primary1---Blue-primary1---blue-500;
+                    font-size: 14px;
+                    img {
+                      height: 20px;
+                      position: relative;
+                      top: -1px;
+                    }
+                  }
+ 
+                  .uploadErrorDiv {
+                    position: absolute;
+                    right: 20px;
+                    bottom: -20px;
+                    padding: 5px;
+                    background: $input-error;
+                    border-radius: 5px;
+                    color: $white;
+                    box-shadow: 1px 1px 8px $light-grey-300;
+                    font-size: 12px;
+                    z-index: 2;
+                  }
+                }
+                .tycFrameContentsText {
+                  @include flex(row, center, flex-start, 0.125rem);
+                  flex: 1 0 0;
+                }
+                .tycFrameContentsTextValue {
+                  color: $darkest-grey;
+                  @include font(1rem, 500, 1.5rem);
+                  max-width: 55%;
+                }
+                .tycFrameContentsTextStrick {
+                  color: $Utility---Error-Red-Error-Red;
+                  @include font(1rem, 400, 1.5rem);
+                }
+                .tycBottom {
+                  @include flex(column, flex-end, flex-start, 1.5rem);
+                  align-self: stretch;
+                  border-radius: 1rem;
+                  padding-bottom: 1rem;
+                }
+                .tycBottomButtons {
+                  @include flex(row, center, flex-end, 1rem);
+                  align-self: stretch;
+                }
+                .buttonTextContainer {
+                  @include flex(row, center, flex-start, 1rem);
+                  align-content: center;
+                  align-self: stretch;
+                  flex-wrap: wrap;
+                  padding: 8px;
+                  background-color: $light-blue-50;
+                  border-radius: 48px;
+                  position: relative;
+                  max-width: 45%;
+                  [class="closeIcon"]{
+                    float: none;
+                    margin-left: 0;
+                    height: auto;
+                    width: auto;
+                  }
+                  label {
+                    display: flex;
+                    align-items: center;
+                    max-width: 84%;
+                    // border:1px solid blue;
+                
+                    .buttonTextNameValue {
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      display: flex;
+                      align-items: center;
+                      @include flex(row, center, flex-start, 0);
+                      @include font(0.875rem, 500, 1.375rem);
+                      margin-right: 4px;
+                      color: $blue;
+                      img{margin-right: 4px;}
+                
+                    }
+                    .buttonTextNameSize {
+                      color: $dark-grey-500;
+                      @include font(0.75rem, 400, 1.125rem)
+                    }
+                  }
+                }
+                .buttonTextName {
+                  @include flex(row, center, flex-start, 0.25rem);
+                }
+                
+                .buttonTextNameValue {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  max-width: 120px;   
+                  align-items: center;
+                  @include flex(row, center, flex-start, 0);
+                  @include font(0.875rem, 500, 1.375rem)
+                }
+                
+                .buttonTextNameSize {
+                  color: $dark-grey-500;
+                  @include font(0.75rem, 400, 1.125rem)
+                }
+                
+                .buttonTextIcon {
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .walaaResponse{
+           @extend .userResponse;
+           margin-bottom: 16px;
+           .profileSection {
+            @extend .userResponse;
+            .dpWrapper{
+              background-color: $Primary1---Blue-primary1---blue-500;
+              @extend .dpWrapper;
+            }
+            
+            
+           }
+        }
+        .contentFooter{
+          display: flex;
+          .blank{
+            width: 10%;
+          }
+          .footerInfo{
+            width: 90%;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 0 5px;
+            p{
+              @include font(14px, 400, 22px);
+              color: $darkest-grey
+            }
+            .faqLink{
+              @include font(14px, 400, 22px);
+              color: $Primary1---Blue-primary1---blue-500;
+            }
+          }
+        }
+        
+      }
+      
+    }
+
+    .contactBranch {
+      flex: 1;
+
+      .cardElement {
+
+        &:not(:last-child) {
+          padding-bottom: 24px;
+          border-bottom: 1px solid $light-blue-200;
+        }
+
+        &:not(:first-child) {
+          padding-top: 24px;
+        }
+
+        .branchCardTextLight {
+          padding-top: 8px;
+          font-size: 16px;
+        }
+      }
+
+    }
+  }
+}
