@@ -1,0 +1,128 @@
+@use "./../../styles/_fonts" as *;
+@use "./../../styles/_colors" as *;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin font($size, $weight, $line-height) {
+  font-size: $size;
+  line-height: $line-height;
+
+  @if $weight ==400 {
+    @extend .walaa-regular-400;
+  } @else if $weight ==500 {
+    @extend .walaa-medium-500;
+  }
+}
+
+%card-text {
+  @include flex(flex-start, flex-start, space-between);
+  gap: 0.25rem;
+  align-self: stretch;
+}
+
+%common-text {
+  font-family: "Graphik Arabic";
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  display: inline-flex;
+  padding: 0rem 4.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+  border-top: 1px solid $Utility---Dark-Grey-dark-grey-50;
+  background-color: $Primary1---Blue-primary1---blue-500;
+  background-image: url(../../../../corporate-portal/src/assets/Footer/Vector.svg);
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: repeat-x;
+
+  .contents {
+    @include flex(row, center, space-between);
+    width: 100%;
+    height: 4.125rem;
+    padding: 1.5rem 0rem;
+
+    .text {
+      color: $white;
+
+      @include font(0.75rem, 500, 1.125rem);
+    }
+
+    .frame {
+      @include flex(row, center);
+      gap: 1rem;
+
+      .links {
+        @include flex(row, center);
+        gap: 0.125rem;
+
+        .linksText {
+          @include flex(row, center);
+          gap: 0.625rem;
+
+          color: $Utility---White-white-500;
+
+          @include font(12px, 400, 1.125rem);
+        }
+      }
+    }
+  }
+}
+
+@include media(xl) {
+  .container {
+    padding: 0 2rem;
+    background: $Primary1---Blue-primary1---blue-500
+      url(../../../../consumer-portal/src/assets/Footer/FooterBg.svg) no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    .linksText {
+      color: $Utility---White-white-500;
+    }
+  }
+}
+
+@include media(md) {
+  .content-container .motor-banner {
+    height: 327px;
+  }
+  .container {
+    .contents {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      gap: 1rem;
+      .frame {
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        .linksText {
+          display: list-item;
+          list-style-type: disc;
+          margin-left: 1em;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px), (max-width: 576px) {
+  .container {
+    display: flex;
+    width: 100%;
+    padding: 0px 16px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+  }
+}

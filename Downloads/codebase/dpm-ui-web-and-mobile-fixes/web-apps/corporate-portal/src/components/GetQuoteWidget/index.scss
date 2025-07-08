@@ -1,0 +1,1333 @@
+@use "../../styles/_colors.scss" as *;
+@use "../../styles/fonts" as *;
+@use "../../styles/utils" as *;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+}
+
+.get-a-quote-widget {
+  position: absolute;
+  transform: translateY(-62%);
+  margin: auto;
+  display: block;
+  left: 0;
+  right: 0;
+  max-width: 1076px;
+  z-index: 3 !important;
+
+  &.single-product-widget {
+    max-width: 1056px;
+    transform: translateY(-55%);
+    z-index: 1;
+    .getquote-dropdown-wrapper {
+      .dropdown-toggle {
+        pointer-events: none;
+        .getquote-dropdown {
+          svg {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  //custom theme styling
+  &.container-fluid {
+    max-width: none;
+
+    .sticky-bar {
+      width: 100%;
+      max-width: none;
+      margin: auto;
+      .widget-options {
+        // padding: 16px 24px 0px 24px;
+        padding: 16px 40px 0px 40px;
+        background-color: $lightBlue;
+        border: 20px 20px 0px 0px;
+
+        .subproduct-wrapper {
+          .unactive-tab img {
+            filter: none;
+          }
+        }
+      }
+
+      .getquote-widget-form {
+        border-radius: 0px 0px 20px 20px;
+        width: 100% !important;
+        max-width: none !important;
+        box-sizing: border-box;
+        .form-wrapper {
+          gap: 24px;
+          .form-input-field {
+            width: 26% !important;
+            .select {
+              height: 45px;
+            }
+          }
+
+          .right-quote-btn {
+            width: 15%;
+            button {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .sticky-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1076px;
+    width: 100%;
+    // overflow: hidden;
+    position: relative;
+
+    &.single-product-bar {
+      max-width: 1056px;
+    }
+
+    .widget-options {
+      display: flex;
+      align-items: center;
+      position: relative;
+      align-self: stretch;
+      width: 100%;
+      border-radius: 16px 16px 0px 0px;
+
+      .subproduct-wrapper {
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex: 1;
+        flex-grow: 1;
+        border-radius: 16px 16px 0px 0px;
+
+        .categ {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 12px 24px;
+          cursor: pointer;
+          font-size: 16px;
+          line-height: 24px;
+
+          &.active {
+            gap: 5px;
+          }
+
+          img {
+            width: 32px;
+            height: 32px;
+          }
+
+          * {
+            cursor: pointer;
+          }
+        }
+
+        .active-tab {
+          gap: 5px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          border-top: 2px solid $crimsonRed;
+          background-color: $themeWhite;
+          color: $primaryBlue;
+          position: relative;
+          box-shadow: 0px 5px 0px 0px $themeWhite;
+
+          .active-slice-left {
+            position: absolute;
+            display: block;
+            bottom: -3px;
+            top: 22px;
+            left: -30px;
+            height: 70%;
+            width: 30px;
+            background: transparent;
+            border-bottom-right-radius: 35px;
+            box-shadow: 5px 7px 0px 5px $themeWhite;
+            opacity: 0;
+            transition: opacity 1s;
+            &.visible {
+              opacity: 1;
+            }
+          }
+
+          .active-slice-right {
+            position: absolute;
+            display: block;
+            bottom: -3px;
+            top: 22px;
+            right: -30px;
+            height: 70%;
+            width: 30px;
+            background: transparent;
+            border-bottom-left-radius: 35px;
+            box-shadow: -5px 7px 0px 5px $themeWhite;
+            opacity: 0;
+            transition: opacity 1s;
+            &.visible {
+              opacity: 1;
+            }
+          }
+        }
+
+        .unactive-tab {
+          img {
+            filter: brightness(250);
+          }
+        }
+      }
+    }
+
+    .getquote-widget-spacing {
+      padding-top: 24px !important;
+    }
+    .getquote-widget-form {
+      align-self: center;
+      gap: 10px;
+      padding: 8px 24px 24px 24px;
+      flex: 0 0 auto;
+      background-color: $themeWhite;
+      border-radius: 40px;
+      box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      box-sizing: border-box;
+
+      &.multi-product {
+        .form-wrapper {
+          .form-input-field {
+            width: 252px;
+            max-width: 264px;
+          }
+        }
+      }
+
+      &.single-product {
+        width: 100%;
+        .form-wrapper-spacing {
+          justify-content: space-evenly;
+        }
+        .form-wrapper {
+          .widget-product-icon {
+            background-color: $aliceBlue;
+            border-radius: 28px;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+
+            span {
+              padding: 8px;
+
+              img {
+                width: 40px;
+                height: 40px;
+              }
+            }
+            .tab-only {
+              display: none;
+            }
+            .desktop-only {
+              display: block;
+            }
+          }
+
+          .form-input-field {
+            max-width: 230.66px;
+            .input-placeholder {
+              white-space: nowrap;
+            }
+          }
+
+          .icon-spacing {
+            margin-left: -5px;
+          }
+
+          .widget-wrapper {
+            padding: 0px;
+            width: 5%;
+          }
+
+          .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            width: 75%;
+            padding-left: 24px !important;
+            margin-left: -20px;
+              .text-box {
+                color: $primary-blue-500;
+
+                /* Desktop/H6 */
+                @include font(20px, 500, 30px);
+                font-style: normal;
+              }
+          }
+        }
+      }
+      .gap-16 {
+        gap: 16px !important;
+        .button-tooltip {
+          right: 2px !important;
+        }
+        .width-264 {
+          max-width: 248px !important;
+        }
+      }
+      .form-wrapper {
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 7px;
+        .width-264 {
+          width: 264px !important;
+        }
+        .right-quote-btn-spacing {
+          margin-right: 20px;
+        }
+        .right-quote-btn {
+          width: 164px;
+          text-align: center;
+          padding: 0;
+
+          button {
+            padding: 10px 20px;
+            border: 2px solid $crimsonRed;
+            background-color: $themeWhite !important;
+            border-color: $crimsonRed !important;
+            font-size: 16px;
+            min-width: 164px;
+            max-width: 198px;
+            height: 2.75rem;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+
+            .button-label {
+              font-size: 16px;
+              color: $crimsonRed;
+            }
+
+            .icon {
+              svg {
+                color: $crimsonRed;
+                width: 24px;
+                height: 24px;
+              }
+            }
+          }
+        }
+
+        .form-input-field {
+          padding: 0 !important;
+
+          .form-fields {
+            padding: 10px 0px 10px 0px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            input,
+            textarea {
+              flex: 1;
+              padding: 32px;
+              font-size: 16px;
+              border: 1px solid $themeWhite;
+              border-radius: 4px;
+              box-sizing: border-box;
+            }
+
+            .button-tooltip {
+              position: absolute;
+              right: 2px;
+            }
+            .button-right {
+              position: absolute;
+              right: 0;
+            }
+            .calendar-switch {
+              height: 67px;
+
+              border-bottom: 0.5px solid $light-Grey-100;
+              &.data-filled {
+                border-bottom: 0.5px solid $primary-blue-500;
+              }
+              &.error-class {
+                border-bottom: 0.5px solid $requiredRed !important;
+              }
+            }
+
+            svg {
+              color: $primnary-blue-100;
+              width: 22px;
+              height: 22px;
+            }
+
+            .input-placeholder {
+              position: absolute;
+              color: $dark-grey-200;
+              font-size: 16px;
+              display: flex;
+              flex-direction: row;
+              gap: 8px;
+              align-items: center;
+              padding: 16px 0 16px 8px;
+              // styles to override the default browser styles
+              -webkit-background-clip: text;
+              background-clip: text;
+              span.data-filled svg {
+                color: $dark-Grey-500;
+              }
+              span.data-filled img[alt='Identity']{
+                filter: brightness(100) invert(1);
+              }
+            }
+
+
+            input:not([type="checkbox"]) {
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 400;
+              border-left: none;
+              border-right: none;
+              border-top: none;
+              border-radius: 0%;
+              width: 100%;
+              position: relative;
+              padding-left: 38px;
+              border-bottom: 0.5px solid $light-Grey-100;
+              height: 64px;
+              &.error-class {
+                border-bottom: 0.5px solid $requiredRed !important;
+              }
+              &.data-filled {
+                border-bottom: 0.5px solid $primary-blue-500;
+                font-size: 16px;
+              }
+
+            &::-webkit-input-placeholder {
+                color:$dark-grey-200;
+             }
+
+             &:-moz-placeholder { /* Firefox 18- */
+              color:$dark-grey-200;
+             }
+
+             &::-moz-placeholder {  /* Firefox 19+ */
+              color:$dark-grey-200;
+             }
+
+             &::-ms-input-placeholder {
+              color:$dark-grey-200;
+             }
+            }
+
+            select {
+              height: 45px;
+            }
+
+            .dropdown {
+              width: 100%;
+              button {
+                display: flex;
+                flex-direction: row;
+                background-color: $themeWhite;
+                color: $dark-grey-200;
+                border: none;
+                width: 100%;
+                justify-content: space-between;
+                &::after {
+                  display: none;
+                }
+                .item-selected {
+                  color: $themeBlack;
+                }
+              }
+              .dropdown-menu {
+                width: 100%;
+                border-radius: 4px;
+                padding: 0px;
+                border: 1px solid $cool-blue;
+                box-shadow: 0px 0px 8px 0px rgba(4, 103, 159, 0.60); // Opacity has been given hence RGB code is used
+                .dropdown-item{
+                  display: flex;
+                  padding: 12px 16px;
+                  align-items: center;
+                  gap: 8px;
+                  align-self: stretch;
+                  border-bottom: 1px solid $light-grey-300-utility;
+                }
+                .dropdown-item:hover{
+                  background-color: $Blue-Shades-primary1-blue-50;
+                }
+              }
+            }
+
+            .tooltip-icon {
+              color: $steel-blue;
+              cursor: pointer;
+            }
+
+            input:focus-within {
+              outline: none !important;
+            }
+
+            .rmdp-container {
+              width: 100%;
+              display: flex !important;
+              padding: 0 !important;
+              border: none !important;
+
+              .rmdp-input {
+                border: none;
+                height: 44px !important;
+                width: 100%;
+
+                &:focus {
+                  box-shadow: none;
+                }
+              }
+            }
+          }
+          .form-fields.select {
+            border-bottom: 0.5px solid $light-Grey-100 !important;
+            margin-top: 16px;
+          }
+          .form-fields.select.dropdown-border {
+            border-bottom: 0.5px solid $primary-blue-500 !important;
+          }
+        }
+
+        .getquote-dropdown-wrapper {
+          .getquote-dropdown-label {
+            background: none !important;
+            border: none;
+
+            &.active {
+              color: $primaryBlue;
+            }
+
+            &.unactive {
+              color: $primaryBlue;
+            }
+          }
+        }
+      }
+
+      .consent-tab {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+
+        @keyframes fadeInScale {
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .checkbox-wrapper {
+          line-height: 1.1;
+          img{
+            height: 18px;
+            width: 18px;
+          }
+          input,
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+
+          input {
+            cursor: pointer;
+          }
+
+          svg {
+            opacity: 0;
+            transform: scale(0);
+            animation: fadeInScale 0.3s forwards;
+            color: $primarySkyBlue;
+          }
+        }
+
+        span {
+          font-size: 12px;
+          font-style: normal;
+          line-height: 18px;
+          color: $darkGrey;
+        }
+      }
+    }
+  }
+
+  .validation-error {
+    position: absolute;
+    bottom: -15px;
+    left: 0px;
+    font-weight: 400;
+    color: $requiredRed;
+    font-size: 12px;
+    line-height: 18px;
+    @extend .walaa-regular-400;
+  }
+}
+
+//Modal Dialog box case reference No.
+.register-new-claim-GetQuoteWidget-ModalDialogBox {
+  .modal-dialog.modal-lg {
+    .modal-content {
+      div.reference-container {
+        background-color: transparent;
+        border-radius: 0px;
+        box-shadow: none;
+        max-width: 100%;
+        margin: auto;
+        h2 {
+          padding: 24px 24px 16px 24px;
+          margin: 0px;
+        }
+      }
+    }
+  }
+}
+//to capture exceptional UI scenarios
+@media (max-width: 1339px) {
+  .get-a-quote-widget {
+    .right-quote-btn button {
+      gap: 2px !important;
+    }
+  }
+}
+
+// @media (max-width: 1199px) {
+@include media(xl) {
+  .home-widget {
+    .sticky-bar {
+      .getquote-widget-form {
+        border-top-left-radius: 0px !important;
+        margin-left: 64px;
+        margin-right: 64px;
+      }
+      .checkbox-wrapper {
+        margin-top: 18px;
+         }
+    }
+  }
+
+  .get-a-quote-widget {
+    .container {
+      max-width: 95% !important;
+    }
+
+    .sticky-bar {
+      .getquote-widget-form {
+        border-top-left-radius: 40px;
+
+        .form-wrapper {
+          .width-264
+          {
+            width: 47% !important;
+            max-width: 100% !important;
+          }
+          .widget-wrapper {
+            padding: 0px;
+            width: 100% !important;
+          }
+          .widget-product-icon {
+            width: fit-content !important;
+
+            span {
+              padding: 0px;
+            }
+
+            .tab-only {
+              display: flex !important;
+              align-items: center;
+            }
+            img {
+              padding-right: 5px;
+            }
+            .desktop-only {
+              display: none !important;
+            }
+          }
+        }
+      }
+
+      .widget-options {
+        flex-direction: column;
+
+        .subproduct-wrapper {
+          width: 100%;
+          position: relative;
+          > div:first-child {
+            .categ {
+              .active-slice-left {
+                display: none;
+              }
+            }
+          }
+          .react-multi-carousel-list {
+            width: 800px;
+          }
+        }
+      }
+    }
+    //register claim widget tablet viewport styling
+    &.custom-widget {
+      .sticky-bar {
+        width: 100%;
+      }
+      #getquote-widget-form-id {
+        .form-input-field {
+          width: 48% !important;
+        }
+        .right-quote-btn {
+          width: 180px;
+          button {
+            width: 180px;
+          }
+        }
+      }
+      .categ {
+        padding: 16px 24px;
+        .active-slice-left {
+          display: block !important;
+        }
+      }
+    }
+  }
+
+  // carousal next and previous button starts
+  .carousel-button-group {
+    top: 11px;
+    position: absolute;
+    right: 0;
+    width: auto;
+    display: flex;
+
+    .carousel-button-previous {
+      left: auto !important;
+      right: 10px !important;
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border: 1px solid $penumbraBlue !important;
+      background: $themeWhite !important;
+      border-radius: 50%;
+      box-sizing: border-box;
+
+      &:focus,
+      &:focus-visible {
+        outline: none !important;
+      }
+
+      &:hover {
+        border: 2px solid $penumbraBlue !important;
+
+        .ondisable {
+          color: $themeWhite !important;
+        }
+      }
+    }
+
+    .carousel-button-next {
+      right: 60px !important;
+      left: auto !important;
+      width: 38px;
+      height: 38px;
+      border: 1px solid $penumbraBlue !important;
+      background: $themeWhite !important;
+      border-radius: 48%;
+
+      &:focus,
+      &:focus-visible {
+        outline: none !important;
+      }
+
+      &:hover {
+        border: 2px solid $penumbraBlue !important;
+
+        .ondisable {
+          color: $themeWhite !important;
+        }
+      }
+    }
+
+    .carousel-button-previous.disable,
+    .carousel-button-next.disable {
+      border: 1px solid $light-Grey-100 !important;
+      background-color: $themeWhite !important;
+      color: $light-Grey-100 !important;
+      cursor: pointer;
+
+      .ondisable {
+        color: $light-Grey-100 !important;
+      }
+
+      &:hover {
+        cursor: none;
+      }
+    }
+  }
+
+  // carousal next and previous button ends
+
+  .get-a-quote-widget .sticky-bar .widget-options .subproduct-wrapper .categ {
+    padding: 21px 20px;
+  }
+}
+
+// @media (max-width: 1024px) {
+@include media(lg) {
+  .get-a-quote-widget {
+    .sticky-bar {
+      .getquote-widget-form {
+        border-top-left-radius: 40px;
+      }
+
+      .widget-options {
+        .subproduct-wrapper {
+          .categ {
+            padding: 19px 20px;
+          }
+
+          .react-multi-carousel-list {
+            width: 623px;
+
+            .react-multi-carousel-track {
+              li {
+                width: auto !important;
+                margin-right: 24px;
+              }
+            }
+            ul.react-multi-carousel-track {
+              > li:first-child {
+                div {
+                  .categ {
+                    .active-slice-left {
+                      display: none;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .active-tab {
+            .active-slice-left {
+              display: block !important;
+            }
+          }
+        }
+      }
+
+      .form-wrapper {
+        .form-fields {
+          padding: 5px 0 0px 0 !important;
+        }
+
+        .getquote-button {
+          margin-top: 19px;
+          padding: 6px 13px;
+          width: 170px;
+        }
+      }
+    }
+    &.custom-widget {
+      #getquote-widget-form-id {
+        .form-fields {
+          padding: 10px 0px 10px 0px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 990px) {
+  .get-a-quote-widget .sticky-bar .widget-options .subproduct-wrapper .categ {
+    padding: 21px 20px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .get-a-quote-widget {
+    &.home-widget,
+    &.single-product-widget {
+      margin-right: 64px;
+      margin-left: 64px;
+    }
+    .sticky-bar .getquote-widget-form.single-product {
+      position: relative; top: 80px;
+    }
+  }
+}
+
+@media (min-width: 788px) and (max-width: 1200px) {
+  .get-a-quote-widget {
+    &.home-widget,
+    &.single-product-widget {
+      .getquote-widget-form {
+        .form-input-field {
+          width: 47% !important;
+          max-width: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+// @media (max-width: 768px) {
+@include media(md) {
+  .get-a-quote-widget {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 96px;
+    .sticky-bar {
+
+      .widget-options{
+        box-shadow: none;
+      }
+
+      .getquote-widget-form {
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        padding-left: 16px;
+        padding-right: 16px;
+        &.multi-product .form-wrapper .form-input-field {
+          width: 100%;
+        }
+
+        &.border-radius {
+          border-top-left-radius: 40px !important;
+        }
+      }
+
+      .widget-options .subproduct-wrapper {
+        display: none;
+      }
+
+      .getquote-widget-form .form-wrapper {
+        .col-sm-12 {
+          padding-left: 0px;
+          padding-right: 0px;
+          max-width: 100% !important;
+          width: 100% !important;
+        }
+        .form-fields {
+          padding: 9px 0 16px 0 !important;
+        }
+
+        .right-quote-btn {
+          width: 100%;
+          .getquote-button {
+            margin-top: 0px;
+            display: flex;
+            padding: 12px 24px;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            width: 100%;
+
+            background-color: $themeWhite !important;
+            border: 1px solid $red-utility !important;
+            .button-label {
+              color: $red-utility;
+              font-size: 18px;
+              margin-right: 18px;
+            }
+            .icon svg {
+              color: $red-utility;
+              font-size: 18px;
+            }
+          }
+        }
+
+        .getquote-dropdown-wrapper {
+          .dropdown {
+            padding-bottom: 0px;
+          }
+
+          button {
+            display: flex;
+            position: relative;
+            width: 100%;
+            padding: 16px 16px;
+            border-radius: 0%;
+            border: none;
+            border-bottom: 1px solid $light-Grey-100;
+            background: none;
+            color: $primaryBlue;
+
+            &::after {
+              display: none;
+            }
+
+            img {
+              margin-right: 8px;
+              width: 25px;
+              height: 25px;
+            }
+
+            svg {
+              color: $light-Grey-100;
+              position: absolute;
+              right: 0;
+            }
+          }
+
+          .dropdown-menu {
+            overflow-y: scroll;
+            max-height: 230px;
+            width: 100%;
+            padding: 0;
+
+            &::-webkit-scrollbar {
+              width: 5px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: $themeWhite;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              opacity: 0.2;
+              background: $scroll-bar-blue;
+              border-radius: 3.5px;
+            }
+          }
+
+          .getquote-dropdown-label {
+            padding: 16px 5px;
+
+            img {
+              margin-right: 8px;
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+      }
+      .widget-wrapper {
+        display: none;
+      }
+    }
+    &.custom-widget {
+      #getquote-widget-form-id {
+        .form-input-field {
+          width: 100% !important;
+        }
+        .right-quote-btn {
+          width: 100%;
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// @media (max-width: 443px) {
+@include media(sm) {
+  .get-a-quote-widget {
+    transform: translateY(-50%);
+    &.single-product-widget {
+      transform: translateY(-40%)!important;
+      max-width: 100%;
+    }
+
+    .sticky-bar {
+      .widget-options .product-toggle-wrapper {
+        padding-bottom: 16px;
+      }
+
+      .getquote-widget-form {
+        &.gap-16 .button-tooltip{
+          right: 5px !important;
+      }
+        .form-wrapper {
+          gap: 0px !important;
+          margin-bottom: unset;
+          .form-input-field {
+              .form-fields .calendar-switch
+              {
+                padding: 0 8px;
+              }
+          }
+          .right-quote-btn {
+            margin-top: 10px !important;
+          }
+        }
+        &.single-product .form-wrapper {
+          .form-input-field {
+            max-width: 100%;
+          }
+        }
+        .widget-wrapper {
+          display: none;
+        }
+      }
+
+      .getquote-widget-form .form-wrapper {
+        .col-sm-12 {
+          padding-bottom: 0px !important;
+
+          .form-fields {
+            padding: 5px 0px !important;
+
+            .rmdp-container {
+              width: 100%;
+              display: flex !important;
+            }
+
+            input {
+              width: 100%;
+            }
+          }
+        }
+
+        .getquote-button {
+          padding: 12px 24px;
+        }
+      }
+    }
+  }
+
+  .carousel-container {
+    .carousel-content {
+      width: 90%;
+    }
+  }
+
+  .home-widget {
+    .sticky-bar {
+      .getquote-widget-form {
+        border-top-left-radius: 0px !important;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+  }
+
+}
+
+//Modal Dialog box case reference No.
+.register-new-claim-GetQuoteWidget-ModalDialogBox {
+  .modal-dialog.modal-lg {
+    .modal-content {
+      display: flex;
+      max-width: 856px;
+      width: 636px;
+      flex-direction: column;
+      align-items: flex-start;
+      border-radius: 16px;
+      background: $themeWhite;
+      box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.15);
+
+      div.reference-container {
+        background-color: transparent;
+        border-radius: 0px;
+        box-shadow: none;
+        max-width: 100%;
+        margin: auto;
+        h2 {
+          padding: 24px 24px 16px 24px;
+          margin: 0px;
+        }
+      }
+    }
+    .modal-header {
+      display: flex;
+      padding: 24px 24px 16px 24px;
+      align-self: stretch;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      flex: 1 0 0;
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      border: 0;
+      .btn-close
+  {
+    width: 24px;
+      height: 24px;
+      position: absolute;
+      background-size: 16px 12px;
+  }
+    }
+    h2 {
+      color: $dark-Grey-500;
+      @extend .walaa-medium-500;
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .reference-case-type-body {
+      display: flex;
+      padding: 0px 24px 24px 24px;
+      align-items: center;
+      gap: 40px;
+      align-self: stretch;
+    }
+  }
+}
+
+[dir="rtl"] {
+  .get-a-quote-widget .sticky-bar .getquote-widget-form.multi-product .form-wrapper.form-input-field{
+    width: 248px !important;
+    }
+    .get-a-quote-widget .sticky-bar .getquote-widget-form .form-wrapper .right-quote-btn button {
+    max-width: none !important;
+    }
+    .get-a-quote-widget .sticky-bar .getquote-widget-form.single-product .form-wrapper .width-264{
+    width: 0px;
+    max-width: 178px !important;
+    }
+    .get-a-quote-widget .sticky-bar .getquote-widget-form.multi-product .form-wrapper .form-input-field{
+      width: 244px;
+    }
+
+    .get-a-quote-widget .sticky-bar .getquote-widget-form .form-wrapper .getquote-dropdown-wrapper .getquote-dropdown-label.unactive{text-align:right}
+    .get-a-quote-widget .sticky-bar .getquote-widget-form .form-wrapper .getquote-dropdown-wrapper .getquote-dropdown-label img{margin-right: 0; margin-left: 6px;}
+
+    .get-a-quote-widget .sticky-bar .getquote-widget-form .form-wrapper .getquote-dropdown-wrapper button img{
+      margin-right: 10px; margin-left: 6px;
+    }
+
+   @include media(sm) {
+
+    .get-a-quote-widget {
+        .sticky-bar {
+            .getquote-widget-form {
+                .form-wrapper {
+                    .form-input-field {
+                        .form-fields {
+                            .calendar-switch {
+                                padding-right: 0;
+                                width:100%;
+                                justify-content: flex-start;
+                                .padding-right-0{
+                                  margin-right: auto;
+                                }
+                                .calendar-input-group{margin-right: 5px;}
+                            }
+                        }
+                    }
+                }
+
+                &.single-product .form-wrapper .width-264{max-width: 100%!important;}
+            }
+        }
+      }
+
+   }
+
+  .home-widget {
+    .getquote-widget-form {
+      width: unset;
+    }
+    .tooltip-icon {
+      margin-left: 20px;
+    }
+  }
+  .get-a-quote-widget .sticky-bar {
+    .widget-options {
+      .product-toggle-wrapper .product-toggle {
+        z-index: 1;
+      }
+      .subproduct-wrapper {
+        padding-right: 10px; //Fixed: reduced from 18px to 10 to accomodate long length text
+        //Elements Added for RTL start
+        .carousel-button-group {
+          .carousel-button-previous {
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            margin-left: 5px;
+          }
+          .carousel-button-next {
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            margin-right: 5px;
+          }
+        }
+        //Elements Added for RTL end
+        .categ {
+          padding: 12px 18px; //Fixed: reduced from 18px to 10 to accomodate long length text
+        }
+      }
+    }
+    .getquote-widget-form .form-wrapper {
+      gap: 15px;
+      .right-quote-btn button {
+        width: auto;
+        padding-right: 10px;
+        .icon {
+          transform: rotate(180deg);
+          -webkit-transform: rotate(180deg);
+          -moz-transform: rotate(180deg);
+        }
+      }
+      .form-input-field .form-fields input {
+        padding-right: 46px;
+      }
+      .form-fields .button-tooltip {
+        position: absolute;
+        left: -14px;
+        right:auto;
+      }
+    }
+  }
+
+  .get-a-quote-widget .sticky-bar .getquote-widget-form .form-wrapper .col-sm-12 .form-fields.calendar{
+    width:100%;
+  }
+
+
+  .get-a-quote-widget.single-product-widget .sticky-bar .getquote-widget-form .form-wrapper .form-fields .button-tooltip {left: -4px; right:auto!important}
+
+}
+
+.register-claim-wrapper {
+  .subproduct-wrapper {
+    .unactive-tab {
+      img {
+         color: $primary-blue-500;
+         fill: $primary-blue-500;
+         filter: invert(78%) sepia(22%) saturate(7183%) hue-rotate(188deg) brightness(97%) contrast(98%) !important;
+      }
+    }
+  }
+
+  .product-toggle-wrapper-Ui-Tabs { padding-right: 38px;}
+
+  .form-wrapper {
+    .form-input-field {
+      max-width: 300px !important;
+      width: 290px !important;
+    }
+    .right-quote-btn {
+      button {
+        width: 188px !important;
+      }
+    }
+  }
+}

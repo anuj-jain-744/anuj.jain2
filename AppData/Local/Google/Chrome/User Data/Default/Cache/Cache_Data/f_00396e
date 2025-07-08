@@ -1,0 +1,201 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=885feeec"; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s = $RefreshSig$();
+import { Card } from "/node_modules/.vite/deps/react-bootstrap.js?v=870b16e3";
+import __vite__cjsImport4__mui_iconsMaterial_Add from "/node_modules/.vite/deps/@mui_icons-material_Add.js?v=933ee56f"; const AddIcon = __vite__cjsImport4__mui_iconsMaterial_Add.__esModule ? __vite__cjsImport4__mui_iconsMaterial_Add.default : __vite__cjsImport4__mui_iconsMaterial_Add;
+import DriverNameCard from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/DriverNameCard/index.tsx";
+import __vite__cjsImport6_react from "/node_modules/.vite/deps/react.js?v=885feeec"; const React = __vite__cjsImport6_react.__esModule ? __vite__cjsImport6_react.default : __vite__cjsImport6_react; const useState = __vite__cjsImport6_react["useState"]; const useEffect = __vite__cjsImport6_react["useEffect"];
+import { AddDriver } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/AddDriver/index.tsx";
+import { useQuoteAndBuyContext } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/hooks/useQuoteAndBuyContext.tsx";
+import useHandleDriverData from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/hook/motor/useHandleDriverData.tsx";
+import { AlertBox } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/AlertBox/index.tsx";
+import { ERROR, SOMETHING_WENT_WRONG } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/constant.ts";
+import { useReusableAlert } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/hooks/useReusableAlert.ts";
+import { useCheckDuplicateDriver } from "/@fs/C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/hooks/useCheckDuplicateDriver.ts";
+const DriverInformation = ({ languageData }) => {
+  _s();
+  const { driverDetailsResponseData } = useQuoteAndBuyContext();
+  const { handleDriverAdded } = useHandleDriverData();
+  const [showDriverModal, setShowDriverModal] = React.useState(false);
+  const [isMounted, setIsMounted] = useState(true);
+  const [updatedDriverData, setUpdatedDriverData] = useState(driverDetailsResponseData);
+  const { checkIfDriverExists } = useCheckDuplicateDriver();
+  const {
+    apiErrorMessage,
+    showAlertModal,
+    setShowAlertModal,
+    triggerAlert
+  } = useReusableAlert();
+  const handleAddDriver = () => {
+    setShowDriverModal(true);
+    setIsMounted(false);
+  };
+  const handleDriverError = (driverError) => {
+    triggerAlert(
+      driverError?.name || ERROR,
+      driverError.messages?.message_en ?? SOMETHING_WENT_WRONG
+    );
+  };
+  const handleDriverAddedWrapper = (driverData, formData) => {
+    console.log("Checking for duplicates on add:", formData?.ownerId);
+    const isDuplicate = formData?.ownerId && checkIfDriverExists(formData.ownerId);
+    console.log(" Duplicate found?", isDuplicate);
+    if (isDuplicate) {
+      triggerAlert(
+        languageData?.driver_already_added || "Driver already added",
+        languageData?.add_new_driver || "Please add a new driver"
+      );
+      console.log("Triggered Alert Modal from reusable hook");
+      return;
+    }
+    handleDriverAdded(driverData, formData);
+  };
+  useEffect(() => {
+    setUpdatedDriverData(driverDetailsResponseData);
+  }, [driverDetailsResponseData]);
+  return /* @__PURE__ */ jsxDEV(Card, { className: "w-100 driver-information-card", children: /* @__PURE__ */ jsxDEV(Card.Body, { children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "row d-flex flex-column", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: `${driverDetailsResponseData.length > 0 ? "col pb-2" : "col"}`, children: /* @__PURE__ */ jsxDEV("div", { className: "d-flex align-items-center justify-content-between", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "additional-driver-title walaa-medium-500", children: languageData?.additional_drivers }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+          lineNumber: 92,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDEV(
+          "div",
+          {
+            className: `d-flex align-items-center add-driver-container link-offset-3 ${driverDetailsResponseData.length > 3 ? "disabledDriver" : ""}`,
+            onClick: driverDetailsResponseData.length > 3 ? void 0 : handleAddDriver,
+            children: [
+              /* @__PURE__ */ jsxDEV("div", { className: "add-driver-icon", children: /* @__PURE__ */ jsxDEV(AddIcon, {}, void 0, false, {
+                fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+                lineNumber: 100,
+                columnNumber: 19
+              }, this) }, void 0, false, {
+                fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+                lineNumber: 99,
+                columnNumber: 17
+              }, this),
+              /* @__PURE__ */ jsxDEV("div", { className: "walaa-regular-400 add-driver-title", children: languageData?.add_driver }, void 0, false, {
+                fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+                lineNumber: 102,
+                columnNumber: 17
+              }, this)
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+            lineNumber: 95,
+            columnNumber: 14
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 91,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 90,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { className: "col", children: /* @__PURE__ */ jsxDEV(DriverNameCard, { isMounted }, void 0, false, {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 109,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 108,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+      lineNumber: 89,
+      columnNumber: 9
+    }, this),
+    showDriverModal && languageData && /* @__PURE__ */ jsxDEV(
+      AddDriver,
+      {
+        showAddDriver: showDriverModal,
+        setShowAddDriver: setShowDriverModal,
+        languageData,
+        isQuote: true,
+        onDriverAdded: handleDriverAddedWrapper,
+        onDriverAddedError: handleDriverError,
+        triggerAlert
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 113,
+        columnNumber: 9
+      },
+      this
+    ),
+    /* @__PURE__ */ jsxDEV(
+      AlertBox,
+      {
+        title: apiErrorMessage.title,
+        description: apiErrorMessage.description,
+        showAlertModal,
+        setShowAlertModal
+      },
+      void 0,
+      false,
+      {
+        fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+        lineNumber: 123,
+        columnNumber: 9
+      },
+      this
+    )
+  ] }, void 0, true, {
+    fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+    lineNumber: 88,
+    columnNumber: 7
+  }, this) }, void 0, false, {
+    fileName: "C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx",
+    lineNumber: 87,
+    columnNumber: 5
+  }, this);
+};
+_s(DriverInformation, "xw0pniviqEHnVSWSisIfAdw5eBw=", false, function() {
+  return [useQuoteAndBuyContext, useHandleDriverData, useCheckDuplicateDriver, useReusableAlert];
+});
+_c = DriverInformation;
+export default DriverInformation;
+var _c;
+$RefreshReg$(_c, "DriverInformation");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/anuj.jain2/Downloads/dpm-ui-web-and-mobile-fixes-21-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/CoveragePlanRight/VehicleInformation/DriverInformation/index.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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LElBQUEiLCJuYW1lcyI6WyJBZGRJY29uIiwiRHJpdmVyTmFtZUNhcmQiLCJSZWFjdCIsInVzZVN0YXRlIiwidXNlRWZmZWN0IiwiQWRkRHJpdmVyIiwidXNlUXVvdGVBbmRCdXlDb250ZXh0IiwidXNlSGFuZGxlRHJpdmVyRGF0YSIsIkFsZXJ0Qm94IiwiRVJST1IiLCJTT01FVEhJTkdfV0VOVF9XUk9ORyIsInVzZVJldXNhYmxlQWxlcnQiLCJ1c2VDaGVja0R1cGxpY2F0ZURyaXZlciIsIkRyaXZlckluZm9ybWF0aW9uIiwibGFuZ3VhZ2VEYXRhIiwiX3MiLCJkcml2ZXJEZXRhaWxzUmVzcG9uc2VEYXRhIiwiaGFuZGxlRHJpdmVyQWRkZWQiLCJzaG93RHJpdmVyTW9kYWwiLCJzZXRTaG93RHJpdmVyTW9kYWwiLCJpc01vdW50ZWQiLCJzZXRJc01vdW50ZWQiLCJ1cGRhdGVkRHJpdmVyRGF0YSIsInNldFVwZGF0ZWREcml2ZXJEYXRhIiwiY2hlY2tJZkRyaXZlckV4aXN0cyIsImFwaUVycm9yTWVzc2FnZSIsInNob3dBbGVydE1vZGFsIiwic2V0U2hvd0FsZXJ0TW9kYWwiLCJ0cmlnZ2VyQWxlcnQiLCJoYW5kbGVBZGREcml2ZXIiLCJoYW5kbGVEcml2ZXJFcnJvciIsImRyaXZlckVycm9yIiwibmFtZSIsIm1lc3NhZ2VzIiwibWVzc2FnZV9lbiIsImhhbmRsZURyaXZlckFkZGVkV3JhcHBlciIsImRyaXZlckRhdGEiLCJmb3JtRGF0YSIsImNvbnNvbGUiLCJsb2ciLCJvd25lcklkIiwiaXNEdXBsaWNhdGUiLCJkcml2ZXJfYWxyZWFkeV9hZGRlZCIsImFkZF9uZXdfZHJpdmVyIiwibGVuZ3RoIiwiYWRkaXRpb25hbF9kcml2ZXJzIiwidW5kZWZpbmVkIiwiYWRkX2RyaXZlciIsInRpdGxlIiwiZGVzY3JpcHRpb24iLCJfYyIsIiRSZWZyZXNoUmVnJCJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJpbmRleC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ2FyZCB9IGZyb20gXCJyZWFjdC1ib290c3RyYXBcIjtcbmltcG9ydCBBZGRJY29uIGZyb20gXCJAbXVpL2ljb25zLW1hdGVyaWFsL0FkZFwiO1xuaW1wb3J0IHsgTGFuZ3VhZ2VEYXRhIH0gZnJvbSBcInR5cGVzL2xhbmd1YWdlRGF0YVwiO1xuaW1wb3J0IERyaXZlck5hbWVDYXJkIGZyb20gXCIuL0RyaXZlck5hbWVDYXJkXCI7XG5pbXBvcnQgUmVhY3QsIHsgdXNlU3RhdGUsIHVzZUVmZmVjdCB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IHsgQWRkRHJpdmVyIH0gZnJvbSBcImNvbXBvbmVudHMvQWRkRHJpdmVyL2luZGV4XCI7XG5pbXBvcnQgeyB1c2VRdW90ZUFuZEJ1eUNvbnRleHQgfSBmcm9tIFwiY29tcG9uZW50cy9ob29rcy91c2VRdW90ZUFuZEJ1eUNvbnRleHRcIjtcbmltcG9ydCB1c2VIYW5kbGVEcml2ZXJEYXRhIGZyb20gXCJob29rL21vdG9yL3VzZUhhbmRsZURyaXZlckRhdGFcIjtcbmltcG9ydCB7IEFsZXJ0Qm94IH0gZnJvbSBcImNvbXBvbmVudHMvQWxlcnRCb3hcIjtcbmltcG9ydCB7IEVycm9yUmVzcG9uc2UgfSBmcm9tIFwidHlwZXMvRXJyb3JSZXNwb25zZVwiO1xuaW1wb3J0IHsgRVJST1IsIFNPTUVUSElOR19XRU5UX1dST05HIH0gZnJvbSBcImNvbnN0YW50XCI7XG5pbXBvcnQgeyBEcml2ZXJEZXRhaWxzUmVzcG9uc2VEYXRhIH0gZnJvbSBcInR5cGVzL3F1b3RlQW5kQnV5XCI7XG5pbXBvcnQgeyBEcml2ZXJEZXRhaWxzRm9ybXNEYXRhIH0gZnJvbSBcInR5cGVzL0RyaXZlckRldGFpbHNBcGlcIjtcbmltcG9ydCB7IHVzZVJldXNhYmxlQWxlcnQgfSBmcm9tIFwiLi4vLi4vLi4vLi4vLi4vLi4vLi4vc3JjL2hvb2tzL3VzZVJldXNhYmxlQWxlcnRcIjtcbmltcG9ydCB7IHVzZUNoZWNrRHVwbGljYXRlRHJpdmVyIH0gZnJvbSBcIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9ob29rcy91c2VDaGVja0R1cGxpY2F0ZURyaXZlclwiO1xuXG5pbnRlcmZhY2UgSURyaXZlckluZm9ybWF0aW9uIHtcbiAgbGFuZ3VhZ2VEYXRhOiBMYW5ndWFnZURhdGEgfCB1bmRlZmluZWQgfCBudWxsO1xufVxuXG5jb25zdCBEcml2ZXJJbmZvcm1hdGlvbjogUmVhY3QuRkM8SURyaXZlckluZm9ybWF0aW9uPiA9ICh7IGxhbmd1YWdlRGF0YSB9KSA9PiB7XG4gIGNvbnN0IHsgZHJpdmVyRGV0YWlsc1Jlc3BvbnNlRGF0YSB9ID0gdXNlUXVvdGVBbmRCdXlDb250ZXh0KCk7XG4gIGNvbnN0IHsgaGFuZGxlRHJpdmVyQWRkZWQgfSA9IHVzZUhhbmRsZURyaXZlckRhdGEoKTtcbiAgLy8gc2hvd2RyaXZlciBtb2RhbCBmb3IgYWRkaW5nIGRyaXZlclxuICBjb25zdCBbc2hvd0RyaXZlck1vZGFsLCBzZXRTaG93RHJpdmVyTW9kYWxdID0gUmVhY3QudXNlU3RhdGUoZmFsc2UpO1xuICBjb25zdCBbaXNNb3VudGVkLCBzZXRJc01vdW50ZWRdID0gdXNlU3RhdGUodHJ1ZSk7XG4gIGNvbnN0IFt1cGRhdGVkRHJpdmVyRGF0YSwgc2V0VXBkYXRlZERyaXZlckRhdGFdID0gdXNlU3RhdGUoZHJpdmVyRGV0YWlsc1Jlc3BvbnNlRGF0YSk7XG4gIC8vIEhvb2sgZm9yIGR1cGxpY2F0ZSBjaGVja1xuXG4gIGNvbnN0IHsgY2hlY2tJZkRyaXZlckV4aXN0cyB9ID0gdXNlQ2hlY2tEdXBsaWNhdGVEcml2ZXIoKTtcblxuICAvLyBSZXVzYWJsZSBBbGVydEJveCBob29rXG4gIGNvbnN0IHtcbiAgICBhcGlFcnJvck1lc3NhZ2UsXG4gICAgc2hvd0FsZXJ0TW9kYWwsXG4gICAgc2V0U2hvd0FsZXJ0TW9kYWwsXG4gICAgdHJpZ2dlckFsZXJ0LFxuICB9ID0gdXNlUmV1c2FibGVBbGVydCgpO1xuXG4gIGNvbnN0IGhhbmRsZUFkZERyaXZlciA9ICgpID0+IHtcbiAgICBzZXRTaG93RHJpdmVyTW9kYWwodHJ1ZSk7XG4gICAgc2V0SXNNb3VudGVkKGZhbHNlKTtcbiAgfTtcbiAgXG5cblxuICAvLyBIYW5kbGUgZXJyb3IgZnJvbSBBUEkgb3IgQWRkRHJpdmVyIGNvbXBvbmVudFxuXG4gIGNvbnN0IGhhbmRsZURyaXZlckVycm9yID0gKGRyaXZlckVycm9yOiBFcnJvclJlc3BvbnNlKSA9PiB7XG4gICAgdHJpZ2dlckFsZXJ0KFxuICAgICAgZHJpdmVyRXJyb3I/Lm5hbWUgfHwgRVJST1IsXG4gICAgICBkcml2ZXJFcnJvci5tZXNzYWdlcz8ubWVzc2FnZV9lbiA/PyBTT01FVEhJTkdfV0VOVF9XUk9OR1xuICAgICk7XG4gIH07XG5cbiAgLy8gIEhhbmRsZSBhZnRlciBkcml2ZXIgaXMgYWRkZWRcblxuICBjb25zdCBoYW5kbGVEcml2ZXJBZGRlZFdyYXBwZXIgPSAoXG4gICAgZHJpdmVyRGF0YTogRHJpdmVyRGV0YWlsc1Jlc3BvbnNlRGF0YSxcbiAgICBmb3JtRGF0YT86IERyaXZlckRldGFpbHNGb3Jtc0RhdGFcbiAgKSA9PiB7XG5cbiAgICBjb25zb2xlLmxvZyhcIkNoZWNraW5nIGZvciBkdXBsaWNhdGVzIG9uIGFkZDpcIiwgZm9ybURhdGE/Lm93bmVySWQpO1xuICAgIGNvbnN0IGlzRHVwbGljYXRlID1cbiAgICAgIGZvcm1EYXRhPy5vd25lcklkICYmIGNoZWNrSWZEcml2ZXJFeGlzdHMoZm9ybURhdGEub3duZXJJZCk7XG4gICAgY29uc29sZS5sb2coXCIgRHVwbGljYXRlIGZvdW5kP1wiLCBpc0R1cGxpY2F0ZSk7XG5cbiAgICBpZiAoaXNEdXBsaWNhdGUpIHtcbiAgICAgIHRyaWdnZXJBbGVydChcbiAgICAgICAgbGFuZ3VhZ2VEYXRhPy5kcml2ZXJfYWxyZWFkeV9hZGRlZCB8fCBcIkRyaXZlciBhbHJlYWR5IGFkZGVkXCIsXG4gICAgICAgIGxhbmd1YWdlRGF0YT8uYWRkX25ld19kcml2ZXIgfHwgXCJQbGVhc2UgYWRkIGEgbmV3IGRyaXZlclwiXG4gICAgICApO1xuICAgICAgY29uc29sZS5sb2coXCJUcmlnZ2VyZWQgQWxlcnQgTW9kYWwgZnJvbSByZXVzYWJsZSBob29rXCIpO1xuICAgICAgcmV0dXJuO1xuICAgIH1cblxuICAgIC8vICBDb250aW51ZSB3aXRoIG9yaWdpbmFsIGxvZ2ljXG4gICAgaGFuZGxlRHJpdmVyQWRkZWQoZHJpdmVyRGF0YSwgZm9ybURhdGEpO1xuICB9O1xuXG4gIHVzZUVmZmVjdCgoKSA9PiB7XG4gICAgc2V0VXBkYXRlZERyaXZlckRhdGEoZHJpdmVyRGV0YWlsc1Jlc3BvbnNlRGF0YSk7XG4gIH0sIFtkcml2ZXJEZXRhaWxzUmVzcG9uc2VEYXRhXSk7XG5cblxuICByZXR1cm4gKFxuICAgIDxDYXJkIGNsYXNzTmFtZT1cInctMTAwIGRyaXZlci1pbmZvcm1hdGlvbi1jYXJkXCI+XG4gICAgICA8Q2FyZC5Cb2R5PlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInJvdyBkLWZsZXggZmxleC1jb2x1bW5cIj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT17YCR7ZHJpdmVyRGV0YWlsc1Jlc3BvbnNlRGF0YS5sZW5ndGggPiAwID8gXCJjb2wgcGItMlwiIDogXCJjb2xcIn1gfT5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZC1mbGV4IGFsaWduLWl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNvbnRlbnQtYmV0d2VlblwiPlxuICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFkZGl0aW9uYWwtZHJpdmVyLXRpdGxlIHdhbGFhLW1lZGl1bS01MDBcIj5cbiAgICAgICAgICAgICAgICB7bGFuZ3VhZ2VEYXRhPy5hZGRpdGlvbmFsX2RyaXZlcnN9XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2BkLWZsZXggYWxpZ24taXRlbXMtY2VudGVyIGFkZC1kcml2ZXItY29udGFpbmVyIGxpbmstb2Zmc2V0LTMgJHtkcml2ZXJEZXRhaWxzUmVzcG9uc2VEYXRhLmxlbmd0aCA+IDMgPyAnZGlzYWJsZWREcml2ZXInIDogJyd9YH1cbiAgICAgICAgICAgICAgICBvbkNsaWNrPXtkcml2ZXJEZXRhaWxzUmVzcG9uc2VEYXRhLmxlbmd0aCA+IDMgPyB1bmRlZmluZWQgOiBoYW5kbGVBZGREcml2ZXJ9XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImFkZC1kcml2ZXItaWNvblwiPlxuICAgICAgICAgICAgICAgICAgPEFkZEljb24gLz5cbiAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIndhbGFhLXJlZ3VsYXItNDAwIGFkZC1kcml2ZXItdGl0bGVcIj5cbiAgICAgICAgICAgICAgICAgIHtsYW5ndWFnZURhdGE/LmFkZF9kcml2ZXJ9XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJjb2xcIj5cbiAgICAgICAgICAgIDxEcml2ZXJOYW1lQ2FyZCBpc01vdW50ZWQ9e2lzTW91bnRlZH0vPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAge3Nob3dEcml2ZXJNb2RhbCAmJiBsYW5ndWFnZURhdGEgJiYgKFxuICAgICAgICAgIDxBZGREcml2ZXJcbiAgICAgICAgICAgIHNob3dBZGREcml2ZXI9e3Nob3dEcml2ZXJNb2RhbH1cbiAgICAgICAgICAgIHNldFNob3dBZGREcml2ZXI9e3NldFNob3dEcml2ZXJNb2RhbH1cbiAgICAgICAgICAgIGxhbmd1YWdlRGF0YT17bGFuZ3VhZ2VEYXRhfVxuICAgICAgICAgICAgaXNRdW90ZT17dHJ1ZX1cbiAgICAgICAgICAgIG9uRHJpdmVyQWRkZWQ9e2hhbmRsZURyaXZlckFkZGVkV3JhcHBlcn1cbiAgICAgICAgICAgIG9uRHJpdmVyQWRkZWRFcnJvcj17aGFuZGxlRHJpdmVyRXJyb3J9XG4gICAgICAgICAgICB0cmlnZ2VyQWxlcnQ9e3RyaWdnZXJBbGVydH1cbiAgICAgICAgICAvPlxuICAgICAgICApfVxuICAgICAgICA8QWxlcnRCb3hcbiAgICAgICAgICB0aXRsZT17YXBpRXJyb3JNZXNzYWdlLnRpdGxlfVxuICAgICAgICAgIGRlc2NyaXB0aW9uPXthcGlFcnJvck1lc3NhZ2UuZGVzY3JpcHRpb259XG4gICAgICAgICAgc2hvd0FsZXJ0TW9kYWw9e3Nob3dBbGVydE1vZGFsfVxuICAgICAgICAgIHNldFNob3dBbGVydE1vZGFsPXtzZXRTaG93QWxlcnRNb2RhbH1cbiAgICAgICAgLz5cbiAgICAgIDwvQ2FyZC5Cb2R5PlxuICAgIDwvQ2FyZD5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IERyaXZlckluZm9ybWF0aW9uOyJdLCJmaWxlIjoiQzovVXNlcnMvYW51ai5qYWluMi9Eb3dubG9hZHMvZHBtLXVpLXdlYi1hbmQtbW9iaWxlLWZpeGVzLTIxLTA2LTIwMjUvZHBtLXVpLXdlYi1hbmQtbW9iaWxlLWZpeGVzL3dlYi1hcHBzL2NvbnN1bWVyLXBvcnRhbC9zcmMvTW90b3IvUXVvdGVBbmRCdXkvQ292ZXJhZ2VQbGFuL0NvdmVyYWdlUGxhblJpZ2h0L1ZlaGljbGVJbmZvcm1hdGlvbi9Ecml2ZXJJbmZvcm1hdGlvbi9pbmRleC50c3gifQ==

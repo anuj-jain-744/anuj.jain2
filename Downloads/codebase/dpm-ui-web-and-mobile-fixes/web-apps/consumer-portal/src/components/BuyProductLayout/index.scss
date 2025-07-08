@@ -1,0 +1,155 @@
+@use "../../styles/colors" as *;
+@use "../../styles/fonts" as *;
+@use '../../../../app-shell/src/styles/media-queries' as *;
+
+@mixin flex($direction: row,
+  $align: center,
+  $justify: flex-start,
+  $gap: 0,
+  $alignSelf: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+  align-self: $alignSelf;
+}
+
+.quote-container-motor {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+
+  .leftPanel {
+    @include flex(column, flex-start, flex-start, 24px);
+    width: 67%;
+    border-radius: 20px;
+    padding-bottom: 20vh;
+  }
+
+  .rightPanel {
+    @include flex(column, center, flex-start);
+    width: 32%;
+    position: sticky;
+    align-self: auto;
+    top: 124px;
+    display: flex;
+    flex-direction: column;
+
+  }
+  #hamburger-menu-btn , #close-btn , .summaryTitle  {
+    display: none;  
+  }
+ 
+
+  .make-btn-payment {
+    background-color: $dark-grey-50 !important;
+    color: $light-grey-100 !important;
+  }
+
+  .make-btn-payment-active {
+    background-color: $btn-gray-color-600 !important;
+    color: $white !important;
+  }
+}
+
+@include media(xl) {
+  .quote-container-motor {
+    .rightPanel {
+      position: fixed;
+      top: 0;
+      right: -440px;
+      width: 440px;
+      padding: 0 16px;
+      height: 100%;
+      background-color: $white;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s ease-in-out;
+      z-index: 9;
+      overflow-y: auto;
+
+      &.open {
+        right: 0;
+        padding-top: 72px;
+
+        .summaryTitle {
+          display: block;
+          text-align: left;
+          padding: 0 0 20px 0;
+          color: $dark-grey-500;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 30px;
+          width: 100%;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #e0e0e0;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      &.closed {
+        right: -440px;
+      }
+    }
+
+    #hamburger-menu-btn {
+      display: block;
+      position: fixed;
+      top: 330px;
+      right: 0px;
+
+      cursor: pointer;
+      z-index: 8;
+
+      .summary-details-text {
+        display: none;
+        position: absolute;
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 0;
+        right: -100px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      &:hover .summary-details-text {
+        opacity: 1;
+        right: 30px;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
+        transition: transform 0.3s ease-in-out;
+      }
+    }
+
+    #close-btn {
+      position: absolute;
+      top: 65px;
+      right: 10px;
+      cursor: pointer;
+      display: block;
+    }
+    .make-btn-payment, .make-btn-payment-active {
+      position: absolute;
+      right: 18px;
+    }
+  }
+}

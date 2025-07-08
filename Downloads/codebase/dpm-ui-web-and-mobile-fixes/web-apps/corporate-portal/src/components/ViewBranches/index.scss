@@ -1,0 +1,497 @@
+@use "../../styles/_colors.scss" as *;
+@use '../../../../app-shell/src/styles/media-queries' as *;
+@use '../../styles/utils' as utils;
+
+
+
+@mixin fontStyle ($size, $color) {
+    font-size: $size;
+    line-height: $size * 1.5;
+    color: $color;
+}
+
+.view-branches-section {
+
+    .view-branch-container{
+        padding-top:96px!important;
+        padding-bottom:96px!important;
+    }
+
+    .branches-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .title {
+            @include utils.font-setting($primary-blue-500, 32px, 48px);
+            text-align: center;
+            padding-top: 0px;
+        }
+
+        .description {
+            @include utils.font-setting($darkestGrey, 18px, 28px);
+        }
+
+    }
+
+    .branched-box {
+        border-radius: 24px;
+        border: 1px solid $aliceBlue;
+        box-shadow: 0px 4px 10px 0px rgba(106, 170, 228, 0.12);
+        margin-top: 50px;
+
+        .row-classname {
+            background-color: $Ocean-Haze;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+
+            .branch-selector-col {
+                padding-left: 0;
+                background-color: $themeWhite;
+            }
+
+            .google-map-col {
+                padding-right: 0;
+            }
+        }
+
+        .branch-selector-col {
+            padding-right: 0;
+            z-index: 1;
+
+            .branch-selector-wrapper {
+                background-color: $ice-blue;
+                border-top-left-radius: 25px;
+                box-shadow: 10px 0 15px -10px rgba(0, 0, 0, 0.10);
+
+                .filter-region {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 18px 24px;
+                    width: 100%;
+                    gap: 16px;
+
+                    .dropdown {
+                        width: 50%;
+                        border-bottom: 1px solid $primary-blue-500;
+
+                        .dropdown-menu {
+                            .dropdown-item{
+                                padding: 4px 8px;
+                                &.selected{
+                                    font-weight: bold;
+                                }
+                            }
+                            &.show {
+                                width: 100%;
+                            }
+                        }
+
+                        .dropdown-toggle::after {
+                            display: none;
+                        }
+
+                        button {
+                            padding: 16px 0px;
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: flex-end;
+                            background-color: transparent;
+                            color: $dark-Grey-500;
+                            border: none;
+                            border-radius: 0;
+                            width: 100%;
+                            font-size: 16px;
+
+                            .filter-title {
+                                font-size: 16px;
+                                width: 100%;
+                            }
+
+                            svg {
+                                color: $light-Grey-100;
+                            }
+
+                        }
+                    }
+                }
+
+                .filter-office {
+                    padding: 10px 24px;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .office-checkbox {
+                        flex: 1 0 50%;
+                        color: $dark-Grey-500;
+                        margin-bottom: 10px;
+
+                        input {
+                            border-radius: 50%;
+
+
+
+                        }
+
+                        label {
+                            font-size: 16px;
+                            cursor: pointer;
+                        }
+
+                        :checked[type=radio] {
+                            background-color: $primaryBlue;
+                            border: 1px solid $primaryBlue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+                .branch-card-wrapper {
+                    background-color: $themeWhite;
+
+                    overflow-y: auto;
+                    max-height: 395px;
+
+                    .card-wrapper {
+                        padding: 15px;
+
+                        .branch-card {
+                            padding: 24px;
+                        }
+                    }
+
+                    .contact-wrapper {
+                        padding: 16px 0 24px 0;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 7px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        background: $themeWhite;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        box-shadow: inset -3px 0 0 0 $themeWhite;
+                        background: $light-grey-400-utility;
+                        border-radius: 3.5px;
+                    }
+
+                }
+
+            }
+        }
+
+        .google-map-col {
+            padding-left: 0;
+
+            .google-map-wrapper {
+                div {
+                    border-top-right-radius: 24px;
+                    border-bottom-right-radius: 24px;
+
+                    iframe {
+                        width: 100%;
+                        height: 610px;
+                        border-top-right-radius: 24px;
+                        border-bottom-right-radius: 24px;
+                    }
+                }
+
+                .custom-map-control-zoom-in {
+                    bottom: 32px !important;
+                    right: 70px !important;
+                    background-color: $themeWhite;
+                    padding: 8px;
+                    border: 1px solid $primaryBlue-800;
+                    border-radius: 25px;
+                    left: auto !important;
+                    top: auto !important;
+
+                }
+
+                .custom-map-control-zoom-out {
+                    bottom: 32px !important;
+                    right: 128px !important;
+                    background-color: $themeWhite;
+                    padding: 8px;
+                    border: 1px solid $primaryBlue-800;
+                    border-radius: 25px;
+                    left: auto !important;
+                    top: auto !important;
+
+                }
+
+                .map-container {
+                    height: 610px;
+                    width: 100%;
+
+                    .custom-marker-label {
+                        position: absolute;
+                        bottom: 10px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        white-space: nowrap;
+                        color: $crimsonRed !important;
+                        font-size: 16px !important;
+                        text-shadow:
+                            -1px -1px 0 $themeWhite,
+                            1px -1px 0 $themeWhite,
+                            -1px 1px 0 $themeWhite,
+                            1px 1px 0 $themeWhite;
+                    }
+
+                    .gm-style-iw-c {
+                        border-radius: 0 !important;
+
+                        .gm-style-iw-ch {
+                            font-size: 14px;
+                            font-weight: 500;
+                            max-width: 250px;
+                        }
+
+                        .custom-info-window {
+                            padding-top: 10px;
+
+                            .dialog-window {
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: flex-start;
+
+                                .details {
+                                    max-width: 200px;
+                                }
+
+                                .navigate {
+                                    a {
+                                        .navigate-icon {
+                                            background-image: url(https://maps.gstatic.com/mapfiles/embed/images/entity11.png);
+                                            background-size: 73px 210px;
+                                            background-position: 0 0;
+                                            width: 24px;
+                                            height: 24px;
+                                            overflow: hidden;
+                                            margin: 0 auto;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+
+@include media(xl) {
+    .view-branches-section{
+        .view-branch-container{
+        padding-top: 64px !important;
+    padding-bottom: 64px !important;
+    }
+    }
+
+
+}
+
+@media (max-width: 1024px){
+    .view-branches-section .branch-card-wrapper{
+        padding-bottom: 30px;
+        .card-wrapper{
+            padding: 7px !important;
+        }
+    }
+}
+
+// @media only screen and (max-width:1024px) {
+@include media(lg) {
+
+    .view-branches-section .custom-dot-list-style {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+
+        .react-multi-carousel-dot {
+            border: none;
+
+            button {
+                background-color: $light-Grey-100;
+                width: 8px;
+                height: 8px;
+                border: none;
+                transition: width 0.3s ease;
+                margin: 0px 5px;
+            }
+
+            &.react-multi-carousel-dot--active {
+                button {
+                    background-color: $red-utility;
+                    width: 30px;
+                    height: 8px;
+                    border: none;
+                    border-radius: 8px;
+                }
+            }
+        }
+    }
+}
+
+// @media only screen and (max-width:786px) {
+@include media(md) {
+
+    .view-branches-section {
+
+        .branches-content{
+            .title{
+                @include utils.fontStyle(24px, 36px);
+            }
+
+            .description{
+                @include utils.fontStyle(16px, 24px);
+            }
+        }
+
+        .view-branch-container{
+            padding-top: 48px !important;
+        padding-bottom: 48px !important;
+        }
+
+        .branched-box {
+            .branch-selector-col {
+                padding-right: 12px;
+
+                .branch-selector-wrapper {
+                    border-radius: 24px;
+
+                    .branch-card-wrapper {
+                        position: relative;
+                        overflow-y: unset;
+                        max-height: 100%;
+
+                        .branch-card {
+                            position: relative;
+                            padding: 24px;
+                            border-radius: 24px;
+                            min-height: 290px;
+                        }
+                    }
+                }
+            }
+
+            .google-map-col {
+                padding-left: 12px;
+
+                .google-map-wrapper div {
+                    border-radius: 0px;
+                }
+            }
+        }
+
+        .custom-dot-list-style {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+    }
+
+
+}
+
+@include media (sm){
+
+    .view-branches-section{
+        .branch-card-wrapper{
+            padding-bottom: 0px;
+        }
+
+        .branches-content{
+            padding: 0px 16px;
+        }
+        .view-branch-container{
+            @include utils.sectionPadding(48px,0);
+            .branched-box{
+                .row{
+                    margin: auto;
+                    .branch-selector-col, .google-map-col{
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+[dir="rtl"] {
+
+
+    .view-branches-section .branched-box {
+
+        .branch-selector-col {
+            padding-left: 0;
+
+            .branch-selector-wrapper {
+
+                border-top-right-radius: 25px;
+                border-top-left-radius: 0px;
+
+                .filter-region{
+                    .dropdown-item{
+                        text-align: right;
+                    }
+                }
+
+            }
+
+            .filter-office {
+                padding-right: 55px;
+                display: flex;
+                flex-wrap: wrap;
+
+                .office-checkbox .form-check-input {
+                    float: right;
+                    margin-right: -1.5em;
+                }
+
+            }
+
+        }
+
+        .google-map-col {
+            padding-right: 0;
+
+            .google-map-wrapper {
+                div {
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                    border-top-left-radius: 24px;
+                    border-bottom-left-radius: 24px;
+                }
+            }
+        }
+
+
+    }
+
+}
+
+@include media(xl) {
+    .title {
+        padding-top: 96px;
+    }
+}
+
+@include media(min1440) {
+
+    .view-branches-section .container-fluid { width: 1440px;}
+  }

@@ -1,0 +1,94 @@
+@use '../../styles/_colors.scss' as *;
+@use '../../../../app-shell/src/styles/media-queries' as *;
+@use '../../styles/utils' as utils;
+
+
+.breadcrumb-wrapper {
+    position: absolute;
+    top: 15%;
+    z-index: 2;
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+
+        .breadcrumb-item {
+            padding: 0;
+            color: $primary-blue-300;
+            display: flex;
+            align-items: center;
+
+            .breadcrumb-text {
+                cursor: pointer;
+                transition: border-bottom 0.3s ease;
+                color:$pale-blue;
+                 @include utils.fontStyle(14px, 22px);
+            }
+
+            .breadcrumb-icon {
+                margin: 0px 8px;
+                color:$pale-blue;
+            }
+
+            &::before {
+                display: none;
+            }
+
+            &.last-item {
+                color: $primary-blue-200;
+
+                .breadcrumb-text {
+                    cursor: default;
+                    color: $themeWhite;
+                }
+            }
+        }
+    }
+
+    &.is-motor {
+        .breadcrumb {
+            .breadcrumb-item {
+                &:not(.last-item) {
+                    .breadcrumb-text {
+                        border-bottom: 1px solid transparent;
+                        &:hover {
+                            border-bottom: 1px solid $themeWhite;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include media(md) {
+    .breadcrumb-wrapper {
+        .breadcrumb-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            max-width: 160px;
+        }
+    }
+}
+
+[dir="rtl"] {
+    .breadcrumb-wrapper {
+        svg {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+        }
+    }
+}
+
+@include media(min1540) {
+     .carousel-content-container {
+        .container-fluid{
+            width: 1440px;
+            padding: 0px !important;
+        }
+    }
+
+}

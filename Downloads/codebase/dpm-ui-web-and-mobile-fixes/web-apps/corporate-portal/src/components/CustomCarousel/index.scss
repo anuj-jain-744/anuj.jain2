@@ -1,0 +1,147 @@
+@use '../../styles/_colors.scss' as *;
+@use'../../styles/fonts.scss' as *;
+@use '../../styles/utils' as utils;
+@use '../../../../app-shell/src/styles/media-queries' as *;
+
+@mixin half-circle($top, $right, $bottom, $left, $background-url) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    background: url($background-url) no-repeat;
+}
+
+.custom-carousel-wrapper {
+    background-color: $primary-blue-500 !important;
+    position: relative;
+    background-image: url(../../assets/MotorInsuranceProducts/vector-top.svg),
+                      url(../../assets/MotorInsuranceProducts/Vector-bottom.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: top right, bottom left;
+
+    .container-fluid{
+        @include utils.sectionPadding(48px,48px,'!important');
+    }
+
+    .custom-content-wrapper {
+
+        .custom-title {
+            @include utils.font-setting($themeWhite, 32px, 48px);
+            font-family:"Walaa Arabic Medium", sans-serif;
+        }
+
+        .custom-carousel {
+
+            .carousel-item {
+                flex-direction: column;
+                gap: 8px;
+                padding: 24px;
+                cursor: pointer;
+                border-right: 1px solid $cool-blue;
+                align-self: stretch;
+
+                .header-content {
+                    flex-direction: row;
+                    align-items: flex-end;
+                    gap: 24px;
+
+                    span {
+                        @include utils.font-setting($themeWhite, 20px, 30px);
+                        @include utils.display-ellipse(1);
+                    }
+
+                    img {
+                        width: 48px;
+                        height: 48px;
+                    }
+                }
+                .title-content {
+                    color: $white;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 30px;
+                    font-family: Walaa Arabic Medium, sans-serif;
+                }
+
+                .description-content {
+                    color: $white;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 28px;
+                }
+            }
+        }
+    }
+
+    .news-carousel-button-group{
+        top: 48px;
+    }
+    // Custom Dot Styles (Circle for Inactive, Rectangle for Active)
+    .custom-carousel .react-multi-carousel-dot-list {
+        bottom: 10px; // Adjust the position if needed
+
+        .react-multi-carousel-dot {
+          button {
+            background-color: $light-Grey-100; // Default color for inactive dot
+            width: 12px; // Default circle size
+            height: 12px;
+            border-radius: 50%; // Makes it circular
+            transition: all 0.3s ease;
+            margin: 0 6px;
+          }
+
+          &.react-multi-carousel-dot--active {
+            button {
+              background-color: $red-utility; // Red color for active dot
+              width: 20px; // Make active dot a rectangle
+              height: 12px;
+              border-radius: 4px; // Rounded rectangle
+            }
+          }
+        }
+      }
+}
+
+@include media(xl) {
+
+    .custom-carousel-wrapper {
+
+    .container-fluid{
+        @include utils.sectionPadding(64px,64px,'!important');
+    }
+
+    .react-multi-carousel-list{padding-bottom: 48px;}
+}
+
+}
+
+@include media(lg) {
+    .custom-carousel-wrapper {
+      background-size: 50%;
+    }
+  }
+
+
+@include media(md) {
+
+
+
+    .custom-carousel-wrapper {
+
+    .container-fluid{
+        @include utils.sectionPadding(64px,64px,'!important');
+    }
+
+    .custom-content-wrapper {
+        .custom-title{
+                @include utils.fontStyle(24px, 36px);
+        }
+    }
+}
+
+
+
+}

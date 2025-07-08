@@ -1,0 +1,132 @@
+@use "../../styles/colors" as *;
+@use "../../styles/fonts" as *;
+@use "../../styles/utils" as *;
+
+// Base styles for the notification
+.custom-notification {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 48px 12px 16px; // Added right padding for close button space
+  border-radius: 8px;
+  position: relative;
+  gap: 12px;
+    
+  .notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0; // Prevent icon from shrinking
+    margin-top: 2px;
+  }
+  
+  .notification-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; // Small gap between title and description
+    
+    .notification-title {
+      @include font(14px, 500, 20px);
+    }
+    
+    .notification-description {
+      @include font(14px, 400, 20px);
+    }
+  }
+  
+  // Type-specific styles
+  &.success {
+    background: $green-500-medium;
+    
+    .notification-icon,
+    .notification-title,
+    .notification-description {
+      color: $Utility---White-white-500;
+    }
+  }
+  
+  &.error {
+    background-color: $Secondary6---Crimson-Red-Secondary6---Crimson-Red-500;
+    
+    .notification-icon,
+    .notification-title,
+    .notification-description {
+      color: $Utility---White-white-500;
+    }
+  }
+  
+  &.info {
+    background: $Primary1---Blue-primary1---blue-500;
+    
+    .notification-icon,
+    .notification-title,
+    .notification-description {
+      color: $Utility---White-white-500;
+    }
+  }
+  
+  &.warning {
+    background: $Secondary3---Tulip-Tree-secondary3---tulip-tree-500;
+    
+    .notification-icon,
+    .notification-title,
+    .notification-description {
+      color: $Utility---White-white-500;
+    }
+  }
+}
+
+// Type-specific wrappers for the toast
+.notification-wrapper {
+  position: relative;
+  top: 160px;
+  width: auto;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+  padding: 0;
+  overflow: visible;
+
+  &.success {
+    border-left: 2px solid $green-700-dark;
+  }
+
+  &.error {
+    border-left: 2px solid $crimson-red-900;
+  }
+
+  &.info {
+    border-left: 2px solid $Primary1---Blue-primary1---blue-700;
+  }
+
+  &.warning {
+    border-left: 2px solid $Secondary-Colors-Group-Secondary3---Tulip-Tree-Shade-secondary3---tulip-tree-700;
+  }
+}
+
+.custom-close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  margin: 0;
+  line-height: 0;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+    
+    &:hover {
+      opacity: 1; // Full opacity on hover
+    }
+  }
+}

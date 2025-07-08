@@ -1,0 +1,273 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=6792a168"; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.__vite_plugin_react_preamble_installed__) {
+    throw new Error("@vitejs/plugin-react can't detect preamble. Something is wrong. See https://github.com/vitejs/vite-plugin-react/pull/11#discussion_r430879201");
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = (type, id) => {
+    RefreshRuntime.register(type, "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx " + id);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s = $RefreshSig$();
+import ThemeButton from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/ThemeComponents/ThemeButton.tsx";
+import __vite__cjsImport4_react from "/node_modules/.vite/deps/react.js?v=6792a168"; const useEffect = __vite__cjsImport4_react["useEffect"]; const useState = __vite__cjsImport4_react["useState"];
+import { Modal } from "/node_modules/.vite/deps/react-bootstrap.js?v=6792a168";
+import __vite__cjsImport6_reactMultiDatePicker from "/node_modules/.vite/deps/react-multi-date-picker.js?v=6792a168"; const DateObject = __vite__cjsImport6_reactMultiDatePicker["DateObject"];
+import __vite__cjsImport7_reactDateObject_calendars_arabic from "/node_modules/.vite/deps/react-date-object_calendars_arabic.js?v=6792a168"; const arabic = __vite__cjsImport7_reactDateObject_calendars_arabic.__esModule ? __vite__cjsImport7_reactDateObject_calendars_arabic.default : __vite__cjsImport7_reactDateObject_calendars_arabic;
+import __vite__cjsImport8_reactDateObject_locales_arabic_en from "/node_modules/.vite/deps/react-date-object_locales_arabic_en.js?v=6792a168"; const arabic_en = __vite__cjsImport8_reactDateObject_locales_arabic_en.__esModule ? __vite__cjsImport8_reactDateObject_locales_arabic_en.default : __vite__cjsImport8_reactDateObject_locales_arabic_en;
+import TypographyAndIcon from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/ThemeComponents/TypographyAndIcon.tsx";
+import { RenewPolicyAlert, after30, after45, after90 } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/Motor/QuoteAndBuy/CoveragePlan/ConstantValue/ConstantValue.ts";
+import "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.scss";
+import { useQuoteAndBuyContext } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/hooks/useQuoteAndBuyContext.tsx";
+import { productIDs } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/constant.ts";
+import { InputCalendar } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/Calendar/inputCalendar.tsx";
+import { isValidDate } from "/@fs/C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/utils/calendarValidation.ts";
+const ChangePolicyStartDate = ({
+  closeHandler,
+  languageData,
+  changeHandler,
+  policyDate,
+  isCalendarIcon,
+  isOnVal,
+  productType
+}) => {
+  _s();
+  const [dateValue, setDateValue] = useState();
+  const format = "DD/MM/YYYY";
+  const [isOn, setIsOn] = useState(isOnVal ?? false);
+  const [ownerDOB, setOwnerDOB] = useState();
+  const [isError, setIsError] = useState(false);
+  const {
+    isRenewpolicy
+  } = useQuoteAndBuyContext();
+  const convertDateYmd = (date) => {
+    const [day, month, year] = date.split("/");
+    return `${year}/${month}/${day}`;
+  };
+  const convertedDate = convertDateYmd(String(dateValue ?? ""));
+  const minDate = isRenewpolicy ? new DateObject(convertedDate).subtract(RenewPolicyAlert, "days") : new DateObject().add(1, "days");
+  const maxDate = isRenewpolicy ? new DateObject(convertedDate).add(after30, "days") : new DateObject().add(productType === productIDs.travel ? after90 : after45, "days");
+  useEffect(() => {
+    let dob = dateValue;
+    if (dateValue) {
+      if (isOn) {
+        dob = typeof dob === "string" ? dob : new DateObject(dateValue).convert(arabic, arabic_en).format();
+      } else {
+        dob = typeof dob === "string" ? dob : new DateObject(dateValue).format();
+      }
+      setOwnerDOB(dob);
+    }
+  }, [dateValue, isOn]);
+  const checkValue = RegExp(/home/i).exec(languageData?.isLatest);
+  const setDatepickerValue = (value) => {
+    const isValid = isValidDate(String(value), isOn, maxDate, minDate);
+    if (!isValid && value) {
+      setIsError(true);
+      return;
+    } else {
+      setIsError(false);
+    }
+    setDateValue(value);
+  };
+  const clickHandler = () => {
+    const isValid = isValidDate(String(ownerDOB), isOn, maxDate, minDate);
+    if (!isValid) {
+      setIsError(true);
+      return;
+    }
+    changeHandler(ownerDOB);
+  };
+  useEffect(() => {
+    if (policyDate) {
+      setDateValue(policyDate);
+    }
+  }, [policyDate]);
+  return /* @__PURE__ */ jsxDEV(
+    Modal,
+    {
+      show: true,
+      onHide: closeHandler,
+      "aria-labelledby": "contained-modal-title-vcenter",
+      centered: true,
+      className: checkValue ? "latestPolicyDateModal" : "ChangePolicyStartDateModal",
+      children: [
+        /* @__PURE__ */ jsxDEV(Modal.Header, { closeButton: true, className: "pb-0 border-0", children: /* @__PURE__ */ jsxDEV(Modal.Title, { className: "walaa-medium-500", children: languageData?.modify_policy_start_date }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 109,
+          columnNumber: 9
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 108,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ jsxDEV(Modal.Body, { className: "add-driver-modal pb-0", children: /* @__PURE__ */ jsxDEV("div", { className: "p-1 ChangePolicyStartDateContainer", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "walaa-regular-400 title", children: /* @__PURE__ */ jsxDEV(
+            TypographyAndIcon,
+            {
+              text: languageData?.policy_start_date,
+              required: false
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+              lineNumber: 116,
+              columnNumber: 13
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+            lineNumber: 115,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: `calendarContainer`, children: /* @__PURE__ */ jsxDEV(
+            InputCalendar,
+            {
+              value: dateValue,
+              showSwitch: true,
+              setValue: setDatepickerValue,
+              format,
+              isOn,
+              switchLabel: languageData?.hirji ?? "",
+              setIsOn,
+              isonlyMonthPickerEnable: false,
+              maxDate: maxDate.format("DD/MM/YYYY"),
+              minDate: minDate.format("DD/MM/YYYY"),
+              isCalendarIcon,
+              errorMessage: isError ? languageData?.policyStartDateError : ""
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+              lineNumber: 122,
+              columnNumber: 13
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+            lineNumber: 121,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 114,
+          columnNumber: 9
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 113,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ jsxDEV(Modal.Footer, { className: "border-0 pt-0", children: /* @__PURE__ */ jsxDEV("div", { className: "d-flex align-items-center gap-2", children: [
+          /* @__PURE__ */ jsxDEV("div", { children: /* @__PURE__ */ jsxDEV(
+            ThemeButton,
+            {
+              classes: "register-call2action btn btn-link btn-lg border border-black",
+              isDisabled: false,
+              title: languageData?.cancel,
+              onClickhandler: closeHandler
+            },
+            void 0,
+            false,
+            {
+              fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+              lineNumber: 142,
+              columnNumber: 13
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+            lineNumber: 141,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { children: [
+            languageData && checkValue && /* @__PURE__ */ jsxDEV(
+              ThemeButton,
+              {
+                classes: "",
+                isDisabled: isError,
+                title: checkValue ? languageData?.update : languageData?.save,
+                onClickhandler: clickHandler
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+                lineNumber: 150,
+                columnNumber: 44
+              },
+              this
+            ),
+            languageData && checkValue === null && /* @__PURE__ */ jsxDEV(
+              ThemeButton,
+              {
+                classes: "",
+                isDisabled: isError,
+                title: languageData?.update,
+                onClickhandler: clickHandler,
+                "data-testid": "update-btn"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+                lineNumber: 156,
+                columnNumber: 53
+              },
+              this
+            )
+          ] }, void 0, true, {
+            fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+            lineNumber: 149,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, true, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 140,
+          columnNumber: 9
+        }, this) }, void 0, false, {
+          fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+          lineNumber: 139,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    true,
+    {
+      fileName: "C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx",
+      lineNumber: 101,
+      columnNumber: 5
+    },
+    this
+  );
+};
+_s(ChangePolicyStartDate, "uOfJeaZ86R/1b+f+EUlnab1X2Os=", false, function() {
+  return [useQuoteAndBuyContext];
+});
+_c = ChangePolicyStartDate;
+export default ChangePolicyStartDate;
+var _c;
+$RefreshReg$(_c, "ChangePolicyStartDate");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/anuj.jain2/Downloads/10-06-2025/dpm-ui-web-and-mobile-fixes/web-apps/consumer-portal/src/components/PolicyStartDate/ChangePolicyStartDate/index.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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QUFBQSxnQkFDckIsZ0JBQWdCTjtBQUFBQSxnQkFDaEIsZUFBWTtBQUFBO0FBQUEsY0FMNEI7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLFlBS2hCO0FBQUEsZUFaNUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFjQTtBQUFBLGFBdkJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUF3QkEsS0F6QkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQTBCQTtBQUFBO0FBQUE7QUFBQSxJQWhFRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsRUFpRUE7QUFFSjtBQUFFakMsR0E1SUlSLHVCQUFpRDtBQUFBLFVBaUJqREoscUJBQXFCO0FBQUE7QUFBQXFELEtBakJyQmpEO0FBOElOLGVBQWVBO0FBQXNCLElBQUFpRDtBQUFBQyxhQUFBRCxJQUFBIiwibmFtZXMiOlsidXNlRWZmZWN0IiwidXNlU3RhdGUiLCJNb2RhbCIsIkRhdGVPYmplY3QiLCJhcmFiaWMiLCJhcmFiaWNfZW4iLCJUeXBvZ3JhcGh5QW5kSWNvbiIsIlJlbmV3UG9saWN5QWxlcnQiLCJhZnRlcjMwIiwiYWZ0ZXI0NSIsImFmdGVyOTAiLCJ1c2VRdW90ZUFuZEJ1eUNvbnRleHQiLCJwcm9kdWN0SURzIiwiSW5wdXRDYWxlbmRhciIsImlzVmFsaWREYXRlIiwiQ2hhbmdlUG9saWN5U3RhcnREYXRlIiwiY2xvc2VIYW5kbGVyIiwibGFuZ3VhZ2VEYXRhIiwiY2hhbmdlSGFuZGxlciIsInBvbGljeURhdGUiLCJpc0NhbGVuZGFySWNvbiIsImlzT25WYWwiLCJwcm9kdWN0VHlwZSIsIl9zIiwiZGF0ZVZhbHVlIiwic2V0RGF0ZVZhbHVlIiwiZm9ybWF0IiwiaXNPbiIsInNldElzT24iLCJvd25lckRPQiIsInNldE93bmVyRE9CIiwiaXNFcnJvciIsInNldElzRXJyb3IiLCJpc1JlbmV3cG9saWN5IiwiY29udmVydERhdGVZbWQiLCJkYXRlIiwiZGF5IiwibW9udGgiLCJ5ZWFyIiwic3BsaXQiLCJjb252ZXJ0ZWREYXRlIiwiU3RyaW5nIiwibWluRGF0ZSIsInN1YnRyYWN0IiwiYWRkIiwibWF4RGF0ZSIsInRyYXZlbCIsImRvYiIsImNvbnZlcnQiLCJjaGVja1ZhbHVlIiwiUmVnRXhwIiwiZXhlYyIsImlzTGF0ZXN0Iiwic2V0RGF0ZXBpY2tlclZhbHVlIiwidmFsdWUiLCJpc1ZhbGlkIiwiY2xpY2tIYW5kbGVyIiwibW9kaWZ5X3BvbGljeV9zdGFydF9kYXRlIiwicG9saWN5X3N0YXJ0X2RhdGUiLCJoaXJqaSIsInBvbGljeVN0YXJ0RGF0ZUVycm9yIiwiY2FuY2VsIiwidXBkYXRlIiwic2F2ZSIsIl9jIiwiJFJlZnJlc2hSZWckIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImluZGV4LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVGhlbWVCdXR0b24gZnJvbSBcImNvbXBvbmVudHMvVGhlbWVDb21wb25lbnRzL1RoZW1lQnV0dG9uXCI7XG5pbXBvcnQgeyB1c2VFZmZlY3QsIHVzZVN0YXRlIH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgeyBNb2RhbCB9IGZyb20gXCJyZWFjdC1ib290c3RyYXBcIjtcbmltcG9ydCB7IERhdGVPYmplY3QsIFZhbHVlIH0gZnJvbSBcInJlYWN0LW11bHRpLWRhdGUtcGlja2VyXCI7XG5pbXBvcnQgeyBMYW5ndWFnZURhdGEgfSBmcm9tIFwidHlwZXMvbGFuZ3VhZ2VEYXRhXCI7XG5pbXBvcnQgYXJhYmljIGZyb20gXCJyZWFjdC1kYXRlLW9iamVjdC9jYWxlbmRhcnMvYXJhYmljXCI7XG5pbXBvcnQgYXJhYmljX2VuIGZyb20gXCJyZWFjdC1kYXRlLW9iamVjdC9sb2NhbGVzL2FyYWJpY19lblwiO1xuaW1wb3J0IFR5cG9ncmFwaHlBbmRJY29uIGZyb20gXCJjb21wb25lbnRzL1RoZW1lQ29tcG9uZW50cy9UeXBvZ3JhcGh5QW5kSWNvblwiO1xuaW1wb3J0IHsgY2hlY2tBZ2VMaW1pdCB9IGZyb20gXCJ1dGlscy9mb3JtYXREYXRlXCI7XG5pbXBvcnQgeyBSZW5ld1BvbGljeUFsZXJ0LCBhZnRlcjMwLCBhZnRlcjQ1LCBhZnRlcjkwIH0gZnJvbSBcIk1vdG9yL1F1b3RlQW5kQnV5L0NvdmVyYWdlUGxhbi9Db25zdGFudFZhbHVlL0NvbnN0YW50VmFsdWVcIjtcbmltcG9ydCBcIi4vaW5kZXguc2Nzc1wiXG5pbXBvcnQgeyB1c2VRdW90ZUFuZEJ1eUNvbnRleHQgfSBmcm9tIFwiY29tcG9uZW50cy9ob29rcy91c2VRdW90ZUFuZEJ1eUNvbnRleHRcIjtcbmltcG9ydCB7IHByb2R1Y3RJRHMgfSBmcm9tIFwiLi4vLi4vLi4vY29uc3RhbnRcIjtcbmltcG9ydCB7IElucHV0Q2FsZW5kYXIgfSBmcm9tIFwiY29tcG9uZW50cy9DYWxlbmRhci9pbnB1dENhbGVuZGFyXCI7XG5pbXBvcnQgeyBpc1ZhbGlkRGF0ZSB9IGZyb20gXCJ1dGlscy9jYWxlbmRhclZhbGlkYXRpb25cIjtcblxuaW50ZXJmYWNlIElQb2xpY3lTdGFydERhdGUge1xuICBjbG9zZUhhbmRsZXI6ICgpID0+IHZvaWQ7XG4gIGxhbmd1YWdlRGF0YTogTGFuZ3VhZ2VEYXRhIHwgdW5kZWZpbmVkIHwgbnVsbDtcbiAgY2hhbmdlSGFuZGxlcjogKHBvbGljeURhdGE6IFZhbHVlIHwgdW5kZWZpbmVkKSA9PiB2b2lkO1xuICBwb2xpY3lEYXRlPzogVmFsdWU7XG4gIGlzQ2FsZW5kYXJJY29uPzogYm9vbGVhbjtcbiAgaXNPblZhbD86IGJvb2xlYW47XG4gIHByb2R1Y3RUeXBlPzogc3RyaW5nO1xufVxuXG4vL2NoYW5nZSBkYXRlIGNvbXBvbmVudFxuY29uc3QgQ2hhbmdlUG9saWN5U3RhcnREYXRlOiBSZWFjdC5GQzxJUG9saWN5U3RhcnREYXRlPiA9ICh7XG4gIGNsb3NlSGFuZGxlcixcbiAgbGFuZ3VhZ2VEYXRhLFxuICBjaGFuZ2VIYW5kbGVyLFxuICBwb2xpY3lEYXRlLFxuICBpc0NhbGVuZGFySWNvbixcbiAgaXNPblZhbCxcbiAgcHJvZHVjdFR5cGUsXG59KSA9PiB7XG4gIGNvbnN0IFtkYXRlVmFsdWUsIHNldERhdGVWYWx1ZV0gPSB1c2VTdGF0ZTxzdHJpbmcgfCBudW1iZXIgfCBWYWx1ZT4oKTtcbiAgY29uc3QgZm9ybWF0ID0gXCJERC9NTS9ZWVlZXCI7XG4gIGNvbnN0IFtpc09uLCBzZXRJc09uXSA9IHVzZVN0YXRlPGJvb2xlYW4+KGlzT25WYWwgPz8gZmFsc2UpO1xuICBjb25zdCBbb3duZXJET0IsIHNldE93bmVyRE9CXSA9IHVzZVN0YXRlPHN0cmluZyB8IG51bWJlciB8IFZhbHVlPigpO1xuICBjb25zdCBbaXNFcnJvciwgc2V0SXNFcnJvcl0gPSB1c2VTdGF0ZTxib29sZWFuPihmYWxzZSk7XG5cbiAgY29uc3Qge1xuICAgIGlzUmVuZXdwb2xpY3ksXG4gIH0gPSB1c2VRdW90ZUFuZEJ1eUNvbnRleHQoKTtcblxuICAvLyBSZWFycmFuZ2UgdG8geXl5eS9tbS9kZFxuICBjb25zdCBjb252ZXJ0RGF0ZVltZCA9IChkYXRlOiBzdHJpbmcpOiBzdHJpbmcgPT4ge1xuICAgIGNvbnN0IFtkYXksIG1vbnRoLCB5ZWFyXSA9IGRhdGUuc3BsaXQoXCIvXCIpOyAvLyBTcGxpdCB0aGUgZGF0ZSBpbnRvIGRheSwgbW9udGgsIGFuZCB5ZWFyXG4gICAgcmV0dXJuIGAke3llYXJ9LyR7bW9udGh9LyR7ZGF5fWA7XG4gIH07XG5cbiAgY29uc3QgY29udmVydGVkRGF0ZSA9IGNvbnZlcnREYXRlWW1kKFN0cmluZyhkYXRlVmFsdWUgPz8gXCJcIikpO1xuXG4gIGNvbnN0IG1pbkRhdGUgPSBpc1JlbmV3cG9saWN5ID8gbmV3IERhdGVPYmplY3QoY29udmVydGVkRGF0ZSkuc3VidHJhY3QoUmVuZXdQb2xpY3lBbGVydCwgXCJkYXlzXCIpIDogbmV3IERhdGVPYmplY3QoKS5hZGQoMSwgXCJkYXlzXCIpO1xuICBjb25zdCBtYXhEYXRlID0gaXNSZW5ld3BvbGljeSA/IG5ldyBEYXRlT2JqZWN0KGNvbnZlcnRlZERhdGUpLmFkZChhZnRlcjMwLCBcImRheXNcIikgOiBuZXcgRGF0ZU9iamVjdCgpLmFkZChwcm9kdWN0VHlwZSA9PT0gcHJvZHVjdElEcy50cmF2ZWwgPyBhZnRlcjkwIDogYWZ0ZXI0NSwgXCJkYXlzXCIpXG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBsZXQgZG9iID0gZGF0ZVZhbHVlO1xuICAgIGlmIChkYXRlVmFsdWUpIHtcbiAgICAgIGlmIChpc09uKSB7XG4gICAgICAgIGRvYiA9IHR5cGVvZiBkb2IgPT09IFwic3RyaW5nXCIgPyBkb2IgOiBuZXcgRGF0ZU9iamVjdChkYXRlVmFsdWUpLmNvbnZlcnQoYXJhYmljLCBhcmFiaWNfZW4pLmZvcm1hdCgpO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgZG9iID0gdHlwZW9mIGRvYiA9PT0gXCJzdHJpbmdcIiA/IGRvYiA6IG5ldyBEYXRlT2JqZWN0KGRhdGVWYWx1ZSkuZm9ybWF0KCk7XG4gICAgICB9XG4gICAgICBzZXRPd25lckRPQihkb2IpO1xuICAgIH1cbiAgfSwgW2RhdGVWYWx1ZSwgaXNPbl0pO1xuXG4gIGNvbnN0IGNoZWNrVmFsdWUgPSAoUmVnRXhwKC9ob21lL2kpLmV4ZWMobGFuZ3VhZ2VEYXRhPy5pc0xhdGVzdCBhcyBzdHJpbmcpKTtcblxuICBjb25zdCBzZXREYXRlcGlja2VyVmFsdWUgPSAodmFsdWU6IFZhbHVlIHwgc3RyaW5nKSA9PiB7XG4gICAgY29uc3QgaXNWYWxpZCA9IGlzVmFsaWREYXRlKFN0cmluZyh2YWx1ZSksIGlzT24sIG1heERhdGUsIG1pbkRhdGUpO1xuICAgIGlmICghaXNWYWxpZCAmJiB2YWx1ZSkge1xuICAgICAgc2V0SXNFcnJvcih0cnVlKTtcbiAgICAgIHJldHVybjtcbiAgICB9IGVsc2Uge1xuICAgICAgc2V0SXNFcnJvcihmYWxzZSk7XG4gICAgfVxuICAgIHNldERhdGVWYWx1ZSh2YWx1ZSlcbiAgfVxuXG4gIC8vIG9uIHNhdmUgY2xpY2sgaGFuZGxlclxuICBjb25zdCBjbGlja0hhbmRsZXIgPSAoKSA9PiB7XG4gICAgY29uc3QgaXNWYWxpZCA9IGlzVmFsaWREYXRlKFN0cmluZyhvd25lckRPQiksIGlzT24sIG1heERhdGUsIG1pbkRhdGUpO1xuICAgIGlmICghaXNWYWxpZCkge1xuICAgICAgc2V0SXNFcnJvcih0cnVlKTtcbiAgICAgIHJldHVybjtcbiAgICB9XG4gICAgY2hhbmdlSGFuZGxlcihvd25lckRPQik7XG4gIH07XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBpZiAocG9saWN5RGF0ZSkge1xuICAgICAgLy8gc2V0SXNPbigpO1xuICAgICAgc2V0RGF0ZVZhbHVlKHBvbGljeURhdGUpO1xuICAgIH1cbiAgfSwgW3BvbGljeURhdGVdKVxuXG4gIHJldHVybiAoXG4gICAgPE1vZGFsXG4gICAgICBzaG93PXt0cnVlfVxuICAgICAgb25IaWRlPXtjbG9zZUhhbmRsZXJ9XG4gICAgICBhcmlhLWxhYmVsbGVkYnk9XCJjb250YWluZWQtbW9kYWwtdGl0bGUtdmNlbnRlclwiXG4gICAgICBjZW50ZXJlZFxuICAgICAgY2xhc3NOYW1lPXtjaGVja1ZhbHVlID8gXCJsYXRlc3RQb2xpY3lEYXRlTW9kYWxcIiA6IFwiQ2hhbmdlUG9saWN5U3RhcnREYXRlTW9kYWxcIn1cbiAgICA+XG4gICAgICA8TW9kYWwuSGVhZGVyIGNsb3NlQnV0dG9uPXt0cnVlfSBjbGFzc05hbWU9XCJwYi0wIGJvcmRlci0wXCI+XG4gICAgICAgIDxNb2RhbC5UaXRsZSBjbGFzc05hbWU9XCJ3YWxhYS1tZWRpdW0tNTAwXCI+XG4gICAgICAgICAge2xhbmd1YWdlRGF0YT8ubW9kaWZ5X3BvbGljeV9zdGFydF9kYXRlfVxuICAgICAgICA8L01vZGFsLlRpdGxlPlxuICAgICAgPC9Nb2RhbC5IZWFkZXI+XG4gICAgICA8TW9kYWwuQm9keSBjbGFzc05hbWU9XCJhZGQtZHJpdmVyLW1vZGFsIHBiLTBcIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJwLTEgQ2hhbmdlUG9saWN5U3RhcnREYXRlQ29udGFpbmVyXCI+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJ3YWxhYS1yZWd1bGFyLTQwMCB0aXRsZVwiPlxuICAgICAgICAgICAgPFR5cG9ncmFwaHlBbmRJY29uXG4gICAgICAgICAgICAgIHRleHQ9e2xhbmd1YWdlRGF0YT8ucG9saWN5X3N0YXJ0X2RhdGUgYXMgc3RyaW5nfVxuICAgICAgICAgICAgICByZXF1aXJlZD17ZmFsc2V9XG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPXtgY2FsZW5kYXJDb250YWluZXJgfT5cbiAgICAgICAgICAgIDxJbnB1dENhbGVuZGFyXG4gICAgICAgICAgICAgIHZhbHVlPXtkYXRlVmFsdWUgYXMgVmFsdWV9XG4gICAgICAgICAgICAgIHNob3dTd2l0Y2g9e3RydWV9XG4gICAgICAgICAgICAgIHNldFZhbHVlPXtzZXREYXRlcGlja2VyVmFsdWV9XG4gICAgICAgICAgICAgIGZvcm1hdD17Zm9ybWF0fVxuICAgICAgICAgICAgICBpc09uPXtpc09ufVxuICAgICAgICAgICAgICBzd2l0Y2hMYWJlbD17bGFuZ3VhZ2VEYXRhPy5oaXJqaSA/PyBcIlwifVxuICAgICAgICAgICAgICBzZXRJc09uPXtzZXRJc09ufVxuICAgICAgICAgICAgICBpc29ubHlNb250aFBpY2tlckVuYWJsZT17ZmFsc2V9XG4gICAgICAgICAgICAgIG1heERhdGU9e21heERhdGUuZm9ybWF0KFwiREQvTU0vWVlZWVwiKX1cbiAgICAgICAgICAgICAgbWluRGF0ZT17bWluRGF0ZS5mb3JtYXQoXCJERC9NTS9ZWVlZXCIpfVxuICAgICAgICAgICAgICBpc0NhbGVuZGFySWNvbj17aXNDYWxlbmRhckljb259XG4gICAgICAgICAgICAgIGVycm9yTWVzc2FnZT17aXNFcnJvciA/IGxhbmd1YWdlRGF0YT8ucG9saWN5U3RhcnREYXRlRXJyb3IgOiBcIlwifVxuICAgICAgICAgICAgLz5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L01vZGFsLkJvZHk+XG4gICAgICA8TW9kYWwuRm9vdGVyIGNsYXNzTmFtZT1cImJvcmRlci0wIHB0LTBcIj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJkLWZsZXggYWxpZ24taXRlbXMtY2VudGVyIGdhcC0yXCI+XG4gICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgIDxUaGVtZUJ1dHRvblxuICAgICAgICAgICAgICBjbGFzc2VzPVwicmVnaXN0ZXItY2FsbDJhY3Rpb24gYnRuIGJ0bi1saW5rIGJ0bi1sZyBib3JkZXIgYm9yZGVyLWJsYWNrXCJcbiAgICAgICAgICAgICAgaXNEaXNhYmxlZD17ZmFsc2V9XG4gICAgICAgICAgICAgIHRpdGxlPXtsYW5ndWFnZURhdGE/LmNhbmNlbCBhcyBzdHJpbmd9XG4gICAgICAgICAgICAgIG9uQ2xpY2toYW5kbGVyPXtjbG9zZUhhbmRsZXJ9XG4gICAgICAgICAgICAvPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICB7KGxhbmd1YWdlRGF0YSAmJiBjaGVja1ZhbHVlKSAmJiA8VGhlbWVCdXR0b25cbiAgICAgICAgICAgICAgY2xhc3Nlcz1cIlwiXG4gICAgICAgICAgICAgIGlzRGlzYWJsZWQ9e2lzRXJyb3J9XG4gICAgICAgICAgICAgIHRpdGxlPXtjaGVja1ZhbHVlID8gbGFuZ3VhZ2VEYXRhPy51cGRhdGUgOiBsYW5ndWFnZURhdGE/LnNhdmV9XG4gICAgICAgICAgICAgIG9uQ2xpY2toYW5kbGVyPXtjbGlja0hhbmRsZXJ9XG4gICAgICAgICAgICAvPn1cbiAgICAgICAgICAgIHsobGFuZ3VhZ2VEYXRhICYmIGNoZWNrVmFsdWUgPT09IG51bGwpICYmIDxUaGVtZUJ1dHRvblxuICAgICAgICAgICAgICBjbGFzc2VzPVwiXCJcbiAgICAgICAgICAgICAgaXNEaXNhYmxlZD17aXNFcnJvcn1cbiAgICAgICAgICAgICAgdGl0bGU9e2xhbmd1YWdlRGF0YT8udXBkYXRlfVxuICAgICAgICAgICAgICBvbkNsaWNraGFuZGxlcj17Y2xpY2tIYW5kbGVyfVxuICAgICAgICAgICAgICBkYXRhLXRlc3RpZD1cInVwZGF0ZS1idG5cIlxuICAgICAgICAgICAgLz59XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9Nb2RhbC5Gb290ZXI+XG4gICAgPC9Nb2RhbD5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IENoYW5nZVBvbGljeVN0YXJ0RGF0ZTtcbiJdLCJmaWxlIjoiQzovVXNlcnMvYW51ai5qYWluMi9Eb3dubG9hZHMvMTAtMDYtMjAyNS9kcG0tdWktd2ViLWFuZC1tb2JpbGUtZml4ZXMvd2ViLWFwcHMvY29uc3VtZXItcG9ydGFsL3NyYy9jb21wb25lbnRzL1BvbGljeVN0YXJ0RGF0ZS9DaGFuZ2VQb2xpY3lTdGFydERhdGUvaW5kZXgudHN4In0=

@@ -1,0 +1,247 @@
+@use "../../../../../styles/fonts" as walaaFont;
+@use "../../../../../styles/_colors" as walaaColor;
+
+@mixin fontStyle($size, $line-height, $weight, $fontColor) {
+    font-size: $size;
+    line-height: $line-height;
+    color: $fontColor;
+
+    @if $weight ==400 {
+        @extend .walaa-regular-400;
+    }
+
+    @else if $weight ==500 {
+        @extend .walaa-medium-500;
+    }
+}
+
+.treeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-self: stretch;
+    margin: 0rem 1.5rem;
+    padding: 1.5rem 1.5rem;
+    background-color: walaaColor.$Utility---Light-Grey-utility---light-grey-50;
+    border: 1px solid walaaColor.$light-grey-300;
+    border-radius: 20px;
+
+    .pageTitle {
+        font-size: 20px;
+        line-height: 30px;
+        @extend .walaa-medium-500;
+
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid walaaColor.$light-grey-400-utility;
+        width: 100%;
+        color: walaaColor.$dark-grey-500;
+    }
+
+    .treeFrame {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        align-self: stretch;
+    }
+
+    .treeBottom {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        align-self: stretch;
+
+        border-top: 1px solid walaaColor.$light-grey-200;
+
+        .treeBottomFrameText {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.625rem;
+            flex: 1 0 0;
+
+            .treeBottomFrameTextContent {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.125rem;
+                cursor: pointer;
+
+                .treeBottomFrameTextValue {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.625rem;
+
+                    border-bottom: 1px solid walaaColor.$Primary1---Blue-primary1---blue-600;
+                }
+            }
+        }
+
+
+    }
+}
+
+.mainTree {
+    list-style: none;
+    position: relative;
+    text-align: left;
+    font-size: 14px;
+    line-height: 22px;
+    @extend .walaa-regular-400;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainTree:before {
+    content: " ";
+    border-left: 2px dotted walaaColor.$Utility---Dark-Grey-dark-grey-200;
+    position: absolute;
+    left: 6px;
+    width: 2px;
+    height: 99%;
+}
+
+.mainTree>li {
+    margin: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+
+    .user-icon {
+        position: absolute;
+        left: -5px;
+    }
+
+    .status-date {
+        @include fontStyle(14px,
+            22px,
+            500,
+            walaaColor.$Utility---Dark-Grey-dark-grey-200 ); 
+
+        .mid-dash {
+            margin:0 16px 0 32px;
+        }
+    }
+
+    .status-text {
+        @include fontStyle(14px, 22px, 400, walaaColor.$dark-grey-500);
+    }
+}
+
+.mainTree>li:before {
+    content: " ";
+    position: absolute;
+    border-radius: 20px;
+    left: 1px;
+    width: 12px;
+    height: 12px;
+    top: 6px;
+    bottom: 0;
+}
+
+.mainTree>li.green:before {
+    background: walaaColor.$Secondary2---Asparagus-secondary2---asparagus-500;
+}
+
+
+.mainTree>li.grey:before {
+    background: walaaColor.$light-grey-400-utility;;
+}
+
+.mainTree>li.red {
+    &:before {
+        background: walaaColor.$Utility---Error-Red-Error-Red;
+    }
+
+    .status-date {
+        @include fontStyle(14px, 22px, 500, walaaColor.$dark-grey-500);
+        .mid-dash {
+            margin:0 15px 0 30px;
+        }
+    }
+
+    .status-text {
+        @include fontStyle(16px, 24px, 500, walaaColor.$dark-grey-500);
+    }
+}
+
+.accor-claim-journy {
+    &.accor-close{margin-bottom: 0;}
+    .p-2.accordion-body {
+        padding: 8px 0 8px 8px !important;
+    }
+
+    .accordion-item {
+        border: 0;
+        background: transparent;
+    }
+
+    .accordion-header {
+        .accordion-button {
+            background-color: transparent;
+            border: 0;
+            box-shadow: 0 0 0;
+            padding: 0;
+            @include fontStyle(14px, 22px, 400, walaaColor.$dark-grey-500);
+
+            &::after {
+                background-size: 14px;
+                background-position: center;
+                margin-left: 8px;
+            }
+        }
+    }
+}
+.doc-link-container{
+    padding-top: 8px;
+    img{margin-right: 4px;}
+    .document-link{
+
+
+        @include fontStyle(14px,22px,400,
+    walaaColor.$Primary1---Blue-primary1---blue-600 );
+
+    &:hover{text-decoration: underline;}
+
+
+}
+}
+
+
+.mainTree>li:first-child {
+    margin-top: -4px;
+}
+
+.mainTree>li:last-child {
+    margin-bottom: -4px;
+}
+
+.mainTree li>.subTree {
+    position: relative;
+    list-style: none;
+    left: 110px;
+    width: 100%;
+}
+
+.mainTree li>.subTree li:before {
+    content: " ";
+    background: url(/src/assets/arrow.png) 100% 100% no-repeat;
+    position: absolute;
+    left: -10px;
+    width: 39px;
+    height: 20px;
+    background-size: cover;
+}
+
+.bottomMain {
+
+    padding: 24px 24px 0 24px;
+    border-top: 1px solid walaaColor.$light-grey-300;
+    width: 100%;
+    .claim-button
+    {
+        color:walaaColor.$Primary1---Blue-primary1---blue-800;
+    }
+}

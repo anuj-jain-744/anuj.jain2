@@ -1,0 +1,477 @@
+@use "../../styles/_colors.scss" as *;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+@use "../../styles/utils" as utils;
+
+
+@mixin fontStyle($size, $color) {
+  font-size: $size;
+  line-height: $size * 1.5;
+  color: $color;
+}
+
+.productCat {
+  background: url(../../assets/product/Product-Bg-header.svg);
+  background-position: top;
+  background-size: contain;
+  background-repeat: repeat-x;
+  display: flex;
+  @include utils.sectionPadding(132px,132px);
+
+  .midContainer {
+    width: 100% !important;
+    align-items: center;
+    text-align: left;
+
+
+    h2 {
+      @include utils.font-setting($primary-blue-500,32px, 48px);
+      padding: 0px 0 8px 0;
+    }
+
+    p {
+      @include utils.font-setting($darkestGrey,18px, 28px);
+      padding-bottom: 48px;
+      margin: 0px;
+    }
+
+    .carousal-tab-container {
+      .tab-buttons {
+        display: flex;
+        border-bottom: 1px solid $pale-blue;
+
+        .tab-list {
+          background-color: transparent;
+          border: none;
+          padding: 16px;
+          cursor: pointer;
+          position: relative;
+          box-shadow: 0px 6px 0px 0px rgba(230, 237, 242, 0.50);
+          bottom: -1px;
+          font-size: 16px;
+          color: $cool-blue;
+
+          &:hover {
+            color: $primary-blue-500;
+          }
+
+          &.active {
+            border-bottom: 2px solid $red-utility;
+            font-family: "Walaa Arabic Medium" !important;
+            color: $primary-blue-500;
+          }
+        }
+      }
+
+      .tab-content {
+        margin-top: 24px;
+        position: relative;
+
+        .carousel-container {
+          .product-item {
+            position: relative;
+            height: 410px;
+            border-radius: 5%;
+            overflow: hidden;
+            margin: 0 24px 0 0;
+
+            // card starts
+            .ReactFlipCard__container {
+              padding: 0px;
+              background-color: transparent;
+              border: none;
+              height: 100%;
+              margin: 0px;
+              width: 100%;
+
+              .face {
+                z-index: 2;
+                border-radius: 5%;
+
+                &.front {
+                  position: absolute;
+                  z-index: 1;
+                  height: 100%;
+                  width: 100%;
+                  backface-visibility: hidden;
+                  transform: rotateY(0deg);
+
+                  .flipcard-img {
+                    position: absolute;
+                    top: 18px;
+                    right: 18px;
+                    z-index: 2;
+                  }
+
+                  .cardimg {
+                    width: 100%;
+                    height: 100%;
+                  }
+
+                  .trasparent-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                  }
+                }
+
+                &.back {
+                  position: absolute;
+                  width: 100%;
+                  padding: 24px;
+                  background-color: $primary-blue-500;
+                  background-position: Top center;
+                  background-size: inherit;
+                  background-repeat: no-repeat;
+                  height: 100%;
+                  transform: rotateY(0deg);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+
+                  button {
+                    background-color: $themeWhite;
+                    color: $primary-blue-500;
+
+                    &:hover {
+                      background-color: $primary-blue-300 !important;
+                    }
+                  }
+
+                  ul {
+                    list-style-type: none;
+                    color: $primnary-blue-100;
+                    font-size: 14px;
+
+                    li {
+                      padding-bottom: 14px;
+                      line-height: 22px;
+                      font-family: "Walaa Arabic Regular";
+                      font-weight: 400;
+                      font-style: normal;
+                      background: url(../../assets/product/CircleTick.svg) left
+                        3px no-repeat;
+                      background-size: 15px;
+                      padding-left: 25px;
+                    }
+                  }
+
+                  p {
+                    color: $themeWhite !important;
+                    padding: 0px 0 20px 0;
+                    margin: 0px;
+                    font-size: 14px;
+                    line-height: 22px;
+                    &.nopadding {
+                      padding: 0px;
+                    }
+
+                    span.card-title {
+                      font-size: 16px;
+                      line-height: 14px;
+                      display: block;
+                      color: $themeWhite;
+                    }
+
+                    span.desc {
+                      font-size: 12px;
+                      line-height: 18px;
+                      display: block;
+                      color: $primnary-blue-100;
+                    }
+
+                    span.eye {
+                      padding-left: 25px;
+                      font-size: 12px;
+                      line-height: 18px;
+                      display: block;
+                      color: $primnary-blue-100;
+                      background: url(../../assets/product/eye.svg) left 3px
+                        no-repeat;
+                      background-size: 18px 11px;
+                      background-position: 0px 5px;
+                    }
+                  }
+
+                  hr {
+                    border-color: $primnary-blue-100;
+                    padding: 0px;
+                    margin: 0px 0 20px 0;
+                  }
+                }
+              }
+
+              .ReactFlipCard__flipCardBack {
+                position: relative;
+                z-index: 1;
+              }
+            }
+
+            // card ends
+
+            .content-over {
+              position: absolute;
+              height:200px;
+              bottom: 0;
+              left: 0;
+              padding: 0 24px;
+
+              h3 {
+                color: $themeWhite !important;
+                font-size: 24px;
+                padding-bottom: 10px;
+              }
+
+              p {
+                overflow: hidden;
+                max-height: 150px;
+                padding: 0;
+                margin-bottom: 16px;
+                word-spacing: -1px;
+              }
+            }
+
+            p {
+              color: $themeWhite !important;
+              font-size: 14px;
+              line-height: 23px;
+            }
+          }
+        }
+
+        // carousal next and previous button starts
+        .carousel-button-group {
+          top: -72px;
+          position: absolute;
+          right: 0;
+          width: auto;
+
+          .carousel-button-previous {
+            left: auto !important;
+            right: 10px !important;
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border: 1px solid $penumbraBlue !important;
+            background: $themeWhite !important;
+            border-radius: 50%;
+            box-sizing: border-box;
+
+            &:focus,
+            &:focus-visible {
+              outline: none !important;
+            }
+
+            &:hover {
+              border: 2px solid $penumbraBlue !important;
+
+              .ondisable {
+                color: $themeWhite !important;
+              }
+            }
+          }
+
+          .carousel-button-next {
+            right: 60px !important;
+            left: auto !important;
+            width: 38px;
+            height: 38px;
+            border: 1px solid $penumbraBlue !important;
+            background: $themeWhite !important;
+            border-radius: 48%;
+
+            &:focus,
+            &:focus-visible {
+              outline: none !important;
+            }
+
+            &:hover {
+              border: 2px solid $penumbraBlue !important;
+
+              .ondisable {
+                color: $themeWhite !important;
+              }
+            }
+          }
+
+          .carousel-button-previous.disable,
+          .carousel-button-next.disable {
+            border: 1px solid $light-Grey-100 !important;
+            background-color: $themeWhite !important;
+            color: $light-Grey-100 !important;
+            cursor: pointer;
+
+            .ondisable {
+              color: $light-Grey-100 !important;
+            }
+
+            &:hover {
+              cursor: none;
+            }
+          }
+        }
+
+        // carousal next and previous button ends
+      }
+    }
+  }
+}
+
+@include media(xl) {
+  .productCat {
+
+    .midContainer {
+      padding-top:37px!important;
+      padding-bottom:0px!important;
+  }
+
+  }
+}
+
+@include media(md) {
+  .productCat {
+    @include utils.sectionPadding(96px,64px);
+    .midContainer {
+      padding: 0px 0px 0px 16px !important;
+      h2 {
+        padding-right: 16px;
+        margin-top: 172px;
+        @include utils.fontStyle(24px,36px);
+
+      }
+      p {
+        padding-right: 16px;
+        @include utils.fontStyle(16px,24px);
+      }
+      .carousal-tab-container {
+        .tab-buttons {
+          margin-right: 16px;
+        }
+        .tab-content {
+          margin: 24px 0 0 0;
+          .react-multi-carousel-list {
+            padding-left: 0px;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+//Fixed: In S22 tabs button overlapping for product catelog
+@media (max-width: 390px) {
+  .productCat {
+    .midContainer {
+      .carousal-tab-container {
+        .tab-buttons {
+          .tab-list {
+            padding: 9px;
+          }
+        }
+      }
+    }
+  }
+}
+
+[dir="rtl"] {
+  .productCat .ar-style {
+    text-align: right;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content .carousel-container .product-item .ReactFlipCard__container .face.back ul li {
+    background: url(../../assets/product/blue-tick.svg) right 3px no-repeat;
+    padding-left:unset;
+    padding-right: 25px;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content .carousel-container .product-item .ReactFlipCard__container .face.back {
+    text-align: right;
+        color: $white;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content .carousel-container .product-item .content-over {
+    text-align: right;
+    min-height: 124px;
+    position: absolute;
+    right: 0;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content .carousel-button-group {
+    left: 50px;
+    right: auto;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content .carousel-button-group .carousel-button-previous {
+    right: 90px !important;
+  }
+  .productCat .carousel-button-next svg {
+    left: 4px;
+    transform: rotate(0deg);
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content {
+    margin-right: -30px;
+  }
+  .productCat .react-multi-carousel-list {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .productCat .midContainer .carousal-tab-container .tab-content {
+    margin-right: -30px;
+  }
+  .productCat .react-multi-carousel-list {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .productCat {
+      .flipcard-img {
+        left: 18px;
+      }
+    }
+
+    .serviceCat {
+      .tab-list {
+        &:first-child {
+          border-radius: 0px 16px 0px 0px;
+        }
+
+        &:last-child {
+          border-radius: 16px 0px 0px 0px !important;
+        }
+      }
+
+      .border-top-left {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 16px !important;
+      }
+    }
+    .carousel-button-previous.disable,
+    .carousel-button-next.disable {
+      border: 1px solid $light-Grey-100 !important;
+      background-color: $themeWhite !important;
+      color: $light-Grey-100 !important;
+      cursor: pointer;
+      transform: rotate(360deg);
+
+      .ondisable {
+        color: $light-Grey-100 !important;
+        right: 5px;
+        transform: rotate(360deg);
+      }
+
+      &:hover {
+        cursor: none;
+      }
+    }
+
+    ._arrowprev_zktwj_21, ._arrownext_zktwj_21 {
+      left: 3px;
+    }
+}
+
+
+@include media(min1540) {
+  .productCat{
+    .midContainer.container-fluid {
+    width: 1440px !important;
+    padding: 0px  !important;
+    }
+  }
+}

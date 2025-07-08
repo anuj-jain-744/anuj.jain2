@@ -1,0 +1,282 @@
+@use "../../styles/_colors.scss" as *;
+@use "../../styles/fonts.scss" as *;
+@use "../../styles/utils" as utils;
+@use "../../../../app-shell/src/styles/media-queries" as *;
+
+@mixin display-ellipse($lines) {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+@mixin font-setting($color, $size, $lineHeight) {
+  color: $color !important;
+  font-size: $size;
+  line-height: $lineHeight;
+}
+
+.sharia-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1440px;
+  width: 100%;
+
+  .frame__content {
+    display: flex;
+    gap: 24px;
+    padding-left: 72px;
+    padding-right: 72px;
+    @include utils.sectionPadding(96px, 96px);
+    width: 100%;
+
+    .frame__text-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 856px;
+      margin-top: 0px;
+
+      .title {
+        @extend .walaa-medium-500;
+        @include font-setting($primnary-blue-600, 32px, 48px);
+        margin-top: -1px;
+        margin-left: 20px;
+        white-space: nowrap;
+      }
+
+      h3 {
+        @extend .walaa-medium-500;
+        @include font-setting($primary-blue-500, 32px, 48px);
+        white-space: nowrap;
+      }
+
+      p,
+      ul,
+      .paragraph {
+        @extend .walaa-regular-400;
+        align-self: stretch;
+        @include font-setting($darkestGrey, 18px, 28px);
+        position: relative;
+        width: 100%;
+      }
+
+      ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-top: 16px;
+      }
+
+      .subtitle {
+        @extend .walaa-medium-500;
+        @include font-setting($dark-grey-500, 18px, 28px);
+        margin-bottom: 16px;
+      }
+
+      div.subtitle {
+        margin-top: 16px;
+      }
+
+      .section-title {
+        @extend .walaa-medium-500;
+        @include font-setting($primary-blue-500, 24px, 36px);
+        margin-bottom: 16px;
+        margin-top: 16px;
+      }
+
+      .sub-section {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    .frame__sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 416px;
+
+      .know-more {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .know-more-title {
+          @extend .walaa-medium-500;
+          @include font-setting($dark-Grey-500, 20px, 30px);
+          padding: 0px;
+          margin-left: 0px;
+        }
+      }
+
+      .related-links {
+        background-color: $primaryBlue-100;
+        border: 1px solid $lightBlue;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+        margin-top: 0px;
+        cursor: pointer;
+
+        svg {
+          color: $primnary-blue-600;
+        }
+
+        .link {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+
+          .link-text {
+            @extend .walaa-regular-400;
+            @include font-setting($primnary-blue-600, 18px, 28px);
+          }
+        }
+
+        .divider {
+          align-self: stretch;
+          background-color: $light-blue-200;
+          height: 1px;
+          width: 100%;
+        }
+      }
+
+      .sharia-info-box {
+        background-color: $themeWhite;
+        border: 1px solid $light-grey-200-utility;
+        border-radius: 20px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 24px;
+        padding: 24px;
+        align-items: center;
+
+        .image {
+          height: 130px;
+          width: 96px;
+          object-fit: cover;
+        }
+
+        .text-content {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .description {
+            @extend .walaa-regular-400;
+            @include font-setting($darkestGrey, 16px, 24px);
+            text-align: left;
+
+            svg {
+              height: 24px;
+              width: 24px;
+              fill: $primaryBlue-400;
+            }
+          }
+
+          .website-link {
+            @extend .walaa-medium-500;
+            @include font-setting($primnary-blue-600, 16px, 24px);
+            padding: 0 0 2px 2px;
+            cursor: pointer;
+          }
+
+          a {
+            @extend .walaa-medium-500;
+            @include font-setting($primnary-blue-600, 16px, 24px);
+            padding: 0 0 2px 2px;
+            cursor: pointer;
+          }
+
+          .link {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+
+// @media only screen and (max-width: 1200px)
+@include media(xl) {
+  .frame .frame__content {
+    padding: 48px 64px 48px 64px;
+    margin-top: 20px;
+  }
+
+  .sharia-frame .frame__content {
+    @include utils.sectionPadding(64px, 64px);
+  }
+}
+
+@include media(lg) {
+  .sharia-frame .frame__content .frame__sidebar .know-more .know-more-title {
+    margin-top: 8px;
+  }
+}
+
+// @media only screen and (max-width: 768px) {
+@include media(md) {
+  .sharia-frame
+    .frame__content
+    .frame__text-section
+    .sharia-frame
+    .frame__content {
+    display: block;
+
+    .frame__sidebar {
+      width: 100%;
+
+      .know-more {
+        .related-links {
+          padding: 16px;
+          margin-top: unset;
+        }
+      }
+    }
+  }
+
+  .know-more-title {
+    margin-left: unset;
+    padding: 24px;
+  }
+
+  .frame__content {
+    flex-direction: column;
+    padding-bottom: 108px;
+  }
+
+  .sharia-frame {
+    padding-bottom: 120px;
+    .frame__content {
+      padding-left: 16px;
+      padding-right: 16px;
+      .frame__sidebar {
+        width: 100%;
+      }
+      .frame__text-section {
+        > :last-child {
+          margin-bottom: 0;
+        }
+        margin-bottom: 0;
+
+        h3 {
+          white-space: unset;
+        }
+      }
+    }
+  }
+}
+
+[dir="rtl"] {
+  .know-more-title {
+    margin-right: -44px;
+  }
+}
